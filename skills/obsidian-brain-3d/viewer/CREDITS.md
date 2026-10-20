@@ -12,3 +12,8 @@
 
 ## Example data
 - `examples/sample-vault` is fictional. The notes were generated for this example and do not describe a real person.
+
+## Ideas and inspiration (no code or assets copied)
+- Prompted by an X post about graphify (https://github.com/Graphify-Labs/graphify): https://x.com/karlarboledas/status/2111838109029552334. The viewer is an independent three.js implementation.
+- Vault structure: Andrej Karpathy, "LLM Wiki" idea file: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
+- Link-as-edge idea: Obsidian graph view.

@@ -125,3 +125,10 @@ http://127.0.0.1:8770/?mode=tree&bg=space&speed=0&skull=0&jaw=1
 - 노트가 아주 많으면 선은 `--max-edges`만큼만 그립니다. 아래 칸의 그래프 값(|V|, |E|, 연결 성분 수)도 그려진 선 기준이므로 전체 링크 수는 오른쪽 아래 줄과 빌드 결과를 봅니다.
 - 그룹이 여섯 개보다 많으면 작은 그룹들은 하나의 `other`로 합쳐집니다.
 - 휴대폰처럼 좁은 화면에서는 아래 칸이 잘립니다. 넓은 화면을 기준으로 만들었습니다.
+
+<!-- credits -->
+## 출처와 영감
+- **계기와 화면 영감**: 폴더를 지식 그래프로 바꾸는 [graphify](https://github.com/Graphify-Labs/graphify)를 소개한 [X 게시물](https://x.com/karlarboledas/status/2111838109029552334)과 그 안의 뇌 모양 대시보드 영상을 보고 "내 노트도 뇌처럼 보이게 할 수 있을까"에서 시작했습니다. graphify의 코드나 그 영상의 디자인 파일은 쓰지 않았고, 화면은 three.js로 새로 만들었습니다. 겉모양이 비슷해 보이지 않도록 엑스레이·두개골·세계수 방향으로 바꿨습니다.
+- **노트 저장고 방식**: 작성자의 보관함은 Andrej Karpathy의 [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) 방식으로 운영하며, 그 구조는 [obsidian-llm-wiki](https://github.com/reedodev/obsidian-llm-wiki)에 정리했습니다.
+- **연결선과 그래프라는 생각**: 옵시디언의 그래프 보기처럼 `[[링크]]`를 선으로 잇는 방식을 따랐습니다.
+- **3D 모델과 라이브러리**: 뇌·두개골 모델은 NIH 3D(CC BY 4.0), 3D 그리기는 three.js(MIT)입니다. 자세한 출처는 [CREDITS.md](viewer/CREDITS.md)에 있습니다.

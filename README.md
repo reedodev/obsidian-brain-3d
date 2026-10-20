@@ -52,6 +52,14 @@ node skills/obsidian-brain-3d/scripts/serve.mjs ./brain-site      # http://127.0
 
 `node tests/run.mjs`가 SKILL.md 형식을 검사하고 예시 파일로 스크립트를 실제로 실행합니다. 푸시할 때마다 GitHub Actions가 같은 시험을 돌립니다(위 test 배지).
 
+<!-- credits -->
+## 출처와 영감
+
+- **계기와 화면 영감**: 폴더를 지식 그래프로 바꾸는 [graphify](https://github.com/Graphify-Labs/graphify)를 소개한 [X 게시물](https://x.com/karlarboledas/status/2111838109029552334)과 그 안의 뇌 모양 대시보드 영상을 보고 "내 노트도 뇌처럼 보이게 할 수 있을까"에서 시작했습니다. graphify의 코드나 그 영상의 디자인 파일은 쓰지 않았고, 화면은 three.js로 새로 만들었습니다. 겉모양이 비슷해 보이지 않도록 엑스레이·두개골·세계수 방향으로 바꿨습니다.
+- **노트 저장고 방식**: 작성자의 보관함은 Andrej Karpathy의 [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) 방식으로 운영하며, 그 구조는 [obsidian-llm-wiki](https://github.com/reedodev/obsidian-llm-wiki)에 정리했습니다.
+- **연결선과 그래프라는 생각**: 옵시디언의 그래프 보기처럼 `[[링크]]`를 선으로 잇는 방식을 따랐습니다.
+- **3D 모델과 라이브러리**: 뇌·두개골 모델은 NIH 3D(CC BY 4.0), 3D 그리기는 three.js(MIT)입니다. 자세한 출처는 [CREDITS.md](skills/obsidian-brain-3d/viewer/CREDITS.md)에 있습니다.
+
 ## 만든 사람
 
 **리도**, AI 좌충우돌 실습 중인 20년차 엔지니어입니다. 매일 AI에게 일을 맡기다가 막힌 부분을 고쳐 가며 이 스킬을 만들었습니다.
@@ -64,5 +72,8 @@ node skills/obsidian-brain-3d/scripts/serve.mjs ./brain-site      # http://127.0
 ## English
 
 Render an Obsidian vault as points inside an x-ray brain and skull, switch to a world-tree layout with T, and see real note titles, dates and link counts. Optional title/group hiding for public sharing.
+
+**Credits.**
+- Started after seeing an [X post](https://x.com/karlarboledas/status/2111838109029552334) about [graphify](https://github.com/Graphify-Labs/graphify) and a brain-shaped dashboard video in it. No graphify code or design files were used; the viewer was written from scratch with three.js and pushed in a different direction (x-ray skull, world tree). Vault structure follows Karpathy's [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). Models: NIH 3D (CC BY 4.0); library: three.js (MIT). See [CREDITS.md](skills/obsidian-brain-3d/viewer/CREDITS.md).
 
 Install: `/plugin marketplace add reedodev/obsidian-brain-3d` then `/plugin install obsidian-brain-3d@obsidian-brain-3d`, or copy `skills/obsidian-brain-3d` into `~/.claude/skills/`. See [SKILL.md](skills/obsidian-brain-3d/SKILL.md) for the full procedure. MIT License; third-party models, fonts and libraries keep their own licenses.
