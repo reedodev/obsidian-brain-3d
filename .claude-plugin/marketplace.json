@@ -1,0 +1,21 @@
+{
+  "name": "obsidian-brain-3d",
+  "owner": {
+    "name": "Reedo"
+  },
+  "metadata": {
+    "description": "Render an Obsidian vault as points inside an x-ray brain and skull, switch to a world-tree layout with T, and see real note titles, dates and link counts. Optional title/group hiding for public sharing.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "obsidian-brain-3d",
+      "description": "Render an Obsidian vault as points inside an x-ray brain and skull, switch to a world-tree layout with T, and see real note titles, dates and link counts. Optional title/group hiding for public sharing.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/obsidian-brain-3d"
+      ]
+    }
+  ]
+}
