@@ -207,7 +207,8 @@ if (opts.out) {
   const site = path.resolve(opts.site || 'brain-site');
   if (site.startsWith(path.resolve(vault) + path.sep)) { console.error('refusing to write inside the vault: ' + site); process.exit(2); }
   await fs.mkdir(site, { recursive: true });
-  for (const f of ['index.html', 'three.min.js', 'models.js', 'CREDITS.md']) {
+  for (const f of ['index.html', 'three.min.js', 'models.js', 'CREDITS.md', 'config.js']) {
+    if (f === 'config.js' && fss.existsSync(path.join(site, f))) continue; // keep the user's own settings
     const src = path.join(VIEWER, f);
     if (fss.existsSync(src)) await fs.copyFile(src, path.join(site, f));
   }

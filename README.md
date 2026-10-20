@@ -12,6 +12,13 @@
 
 <p align="center"><img src="skills/obsidian-brain-3d/docs/preview.png" alt="옵시디언 3D 지식그래프 화면" width="100%"></p>
 
+## 무엇이 필요한가요?
+
+**`.md` 파일이 든 폴더 하나**면 됩니다. 옵시디언 앱이나 AI가 관리하는 LLM 위키가 꼭 있어야 하는 것은 아닙니다. 다만 노트끼리 `[[링크]]`가 걸려 있고, 폴더나 머리말 `type`으로 나뉘어 있고, `created` 날짜가 있으면 화면이 훨씬 풍성해집니다. 노트가 적다면 에이전트에게 노트를 정리하고 링크를 이어 달라고 먼저 요청하는 방법을 [SKILL.md](skills/obsidian-brain-3d/SKILL.md#노트가-아직-적다면-llm-위키처럼-키우기)에 적어 두었습니다.
+
+## 모양 바꾸기
+
+출력 폴더의 `config.js` 한 파일에서 바꿉니다. 에이전트에게 "세계수 화면으로 먼저 열리게 해 줘", "배경을 우주로", "해골 빼고 뇌만", "영역 색을 따뜻한 색으로"처럼 말하면 됩니다. 파일을 고치지 않고 시험해 보려면 주소 뒤에 `?mode=tree&bg=space&skull=0`처럼 붙입니다. 말과 설정값의 대응표는 [SKILL.md](skills/obsidian-brain-3d/SKILL.md#모양-바꾸기-이렇게-말하세요)에 있습니다.
 ## 설치
 
 **Claude Code 플러그인으로 설치**

@@ -91,6 +91,7 @@ body:after{content:'';position:absolute;inset:0;background-image:linear-gradient
 <script src="three.min.js"></script>
 <script src="data.js"></script>
 <script src="models.js"></script>
+<script src="config.js"></script>
 <script>
 /* ===== 템플릿 설정 ===== */
 const CFG={
@@ -108,6 +109,16 @@ const CFG={
  bloom:{strength:.6,radius:1.0},
  background:'net'     // net | hex | space | rain | contour | none   
 };
+/* config.js(window.BRAIN_CONFIG)와 주소 뒤 ?bg=space&speed=0.2&mode=tree&jaw=1 로 모양을 바꿉니다 */
+(()=>{const U=window.BRAIN_CONFIG||{},q=new URLSearchParams(location.search);
+ for(const k of ['rotateSpeed','jaw','background'])if(k in U)CFG[k]=U[k];
+ if(U.skull)Object.assign(CFG.skull,U.skull);if(U.bloom)Object.assign(CFG.bloom,U.bloom);
+ if(Array.isArray(U.colors))U.colors.forEach((c,i)=>{if(c&&CFG.regions[i])CFG.regions[i].col=c});
+ if(U.ui&&typeof U.ui==='object')for(const[k,v]of Object.entries(U.ui))document.documentElement.style.setProperty('--'+k,String(v));
+ CFG.startMode=U.startMode||'brain';CFG.hideSkull=!!U.hideSkull;
+ if(q.has('bg')){CFG.background=q.get('bg');CFG.bgForced=true}
+ if(q.has('speed'))CFG.rotateSpeed=+q.get('speed')||0;if(q.has('jaw'))CFG.jaw=q.get('jaw')!=='0';if(q.has('mode'))CFG.startMode=q.get('mode');if(q.has('skull'))CFG.hideSkull=q.get('skull')==='0';
+})();
 /* ======================== */
 const B=window.BRAIN,N=B.nodes,R=CFG.regions;
 const codeOf=(s,i)=>{s=String(s||'').trim();if(!s||s==='-')return 'R'+(i+1);const w=s.replace(/\(.*\)/,'').trim()||s;return /^[\x00-\x7f]+$/.test(w)?w.replace(/[^A-Za-z0-9]/g,'').slice(0,3).toUpperCase()||'R'+(i+1):w.slice(0,2)};
@@ -153,7 +164,7 @@ MODELS.brain.parts.forEach(p=>{const geo=modelGeo(p,v=>[-v[2],v[1]+.04,v[0]]);co
  brainParts.push({geo,reg,count:n})});
 // 두개골: 모델의 앞(-x)을 +x로 (180° 회전), 크기·위치는 CFG.skull
 const SKJ=['Mandible','Lower teeth','Upper teeth'];
-const skullParts=MODELS.skull.parts.filter(p=>CFG.jaw||!SKJ.includes(p.name)).map(p=>({name:p.name,geo:modelGeo(p,v=>[-v[0]*CFG.skull.scale+CFG.skull.x,v[1]*CFG.skull.scale+CFG.skull.y,-v[2]*CFG.skull.scale])}));
+const skullParts=MODELS.skull.parts.filter(p=>!CFG.hideSkull&&(CFG.jaw||!SKJ.includes(p.name))).map(p=>({name:p.name,geo:modelGeo(p,v=>[-v[0]*CFG.skull.scale+CFG.skull.x,v[1]*CFG.skull.scale+CFG.skull.y,-v[2]*CFG.skull.scale])}));
 // 깊은 구조(뇌실·뇌량·시상)는 수식 그대로
 function tubeGeo(pts,r,seg){const c=new THREE.CatmullRomCurve3(pts.map(p=>new THREE.Vector3(...p)));return new THREE.TubeGeometry(c,seg||90,r,10,false)}
 const ccGeo=tubeGeo([[-.62,.1,0],[-.4,.27,0],[0,.32,0],[.4,.27,0],[.64,.12,0]],.03,60);
@@ -316,7 +327,7 @@ BG.groups.contour=bgPlane('uniform float t,uM;varying vec2 vUv;void main(){vec2 
 BG.groups.none=new THREE.Group();
 function setBG(k){if(!BG.groups[k])k='net';Object.values(BG.groups).forEach(g=>g.visible=false);BG.cur=k;try{localStorage.setItem('brainBg',k)}catch(e){}const s=$('bgSel');if(s.value!==k)s.value=k}
 $('bgSel').onchange=e=>setBG(e.target.value);
-setBG((()=>{try{return localStorage.getItem('brainBg')||CFG.background}catch(e){return CFG.background}})());
+setBG(CFG.bgForced?CFG.background:(()=>{try{return localStorage.getItem('brainBg')||CFG.background}catch(e){return CFG.background}})());
 // 별가루
 {const n=1800,pos=new Float32Array(n*3);for(let i=0;i<n;i++){const r=2.2+rnd()*3.4,th=rnd()*6.283,ph=Math.acos(2*rnd()-1);pos.set([r*Math.sin(ph)*Math.cos(th),r*Math.cos(ph)*.75,r*Math.sin(ph)*Math.sin(th)],i*3)}
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));window.dust=new THREE.Points(g,new THREE.ShaderMaterial({...ADD,uniforms:UNI,vertexShader:'uniform float px;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);gl_Position=projectionMatrix*mv;gl_PointSize=2.*px*(4.4/-mv.z);}',fragmentShader:'void main(){vec2 c=gl_PointCoord-.5;float d=length(c)*2.;if(d>1.)discard;gl_FragColor=vec4(.55,.8,1.,.3*(1.-d));}'}));scene.add(window.dust)}
@@ -328,7 +339,7 @@ const actList=order.filter(i=>adj[i].length>=2).slice(0,14);let actIdx=actList[0
 function setCard(i){const n=N[i],r=R[n[1]];$('card').innerHTML=`<div class="h">${esc(n[0])}</div><dl><dt>그룹</dt><dd style="color:${r.col}">${r.ko} · ${r.key}</dd><dt>세계수</dt><dd>${r.tree||'가지 branch'}</dd><dt>상태</dt><dd>${esc(n[4]||'-')}</dd><dt>연결</dt><dd>직접 ${adj[i].length} / 전체 ${n[2]}</dd><dt>만든 날</dt><dd>${n[5]}</dd></dl>`;if(window.__ready)drawEgo()}
 const labs=$('labs');const labEls=R.map(r=>{const e=document.createElement('div');e.className='lab';e.innerHTML=`<b style="color:${r.col}">${r.key}</b><span>${r.ko}</span>`;labs.appendChild(e);return e});
 const anchB=R.map((r,k)=>{let best=-1,bs=-1e9,pt=null;const d=r.dir;for(const[p,i]of cand[k]){const P=p.geo.attributes.position;const s=P.getX(i)*d[0]+P.getY(i)*d[1]+P.getZ(i)*d[2];if(s>bs){bs=s;best=i;pt=p}}const P=pt.geo.attributes.position;return V3(P.getX(best),P.getY(best),P.getZ(best))});
-let morphT=0;const setMode=m=>{morphT=m;$('tB').classList.toggle('on',m===0);$('tT').classList.toggle('on',m===1)};$('tB').onclick=()=>setMode(0);$('tT').onclick=()=>setMode(1);addEventListener('keydown',e=>{if(e.key==='t'||e.key==='T')setMode(1-morphT)});
+let morphT=0;const setMode=m=>{morphT=m;$('tB').classList.toggle('on',m===0);$('tT').classList.toggle('on',m===1)};$('tB').onclick=()=>setMode(0);$('tT').onclick=()=>setMode(1);addEventListener('keydown',e=>{if(e.key==='t'||e.key==='T')setMode(1-morphT)});if(CFG.startMode==='tree')setMode(1);
 setInterval(()=>{$('clk').textContent=new Date().toLocaleString('ko-KR')},1000);
 
 /* ---------- 아래 패널: 실제 내용 + 수학 도형 ---------- */
