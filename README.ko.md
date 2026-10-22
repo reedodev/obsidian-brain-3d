@@ -34,8 +34,8 @@
 | 2. 만들기 | 노트로 화면 파일을 만듭니다 | `build-data.mjs` |
 | 3. 열기 | 화면을 켜고 브라우저로 엽니다 | `serve.mjs` → `http://127.0.0.1:8770/` |
 
-> **참고**
-> 내 노트는 읽기만 합니다. 고치거나 지우지 않고, 인터넷에 올리지도 않습니다.
+> [!NOTE]
+> **참고:** 내 노트는 읽기만 합니다. 고치거나 지우지 않고, 인터넷에 올리지도 않습니다.
 
 ## 처음 5분 따라 하기
 
@@ -61,8 +61,8 @@ node --version
 - `v18`보다 큰 숫자(예: `v22.11.0`)가 나오면 3단계로 넘어갑니다.
 - 「인식되지 않습니다」나 `command not found`가 나오면 [nodejs.org](https://nodejs.org)에서 **LTS**(오래 지원하는 안정판)를 받아 설치합니다.
 
-> **도움말**
-> Node.js를 설치한 뒤에는 터미널을 **닫았다가 다시 열고** 한 번 더 확인합니다.
+> [!TIP]
+> **도움말:** Node.js를 설치한 뒤에는 터미널을 **닫았다가 다시 열고** 한 번 더 확인합니다.
 
 ### 3단계. 이 폴더 받기
 
@@ -87,8 +87,8 @@ cd obsidian-brain-3d
 3. 풀린 폴더 이름은 `obsidian-brain-3d-main`입니다.
 4. 터미널에 `cd `(cd 다음 띄어쓰기 한 칸)를 입력하고, 그 폴더를 터미널 창으로 끌어다 놓은 뒤 Enter를 누릅니다.
 
-> **확인**
-> Windows는 `dir`, Mac은 `ls`를 입력했을 때 `README.md`와 `skills`가 보이면 제대로 들어온 것입니다.
+> [!TIP]
+> **확인:** Windows는 `dir`, Mac은 `ls`를 입력했을 때 `README.md`와 `skills`가 보이면 제대로 들어온 것입니다.
 > 아래 명령은 모두 **이 폴더 안에서** 입력합니다.
 
 ### 4단계. 예시 노트로 화면 만들기
@@ -109,8 +109,8 @@ node skills/obsidian-brain-3d/scripts/serve.mjs brain-site
 
 `serving ... at http://127.0.0.1:8770/`이 나오면 화면이 켜진 것입니다.
 
-> **중요**
-> 이 터미널은 **켜 둔 채로** 둡니다. 창을 닫으면 화면도 꺼집니다.
+> [!IMPORTANT]
+> **중요:** 이 터미널은 **켜 둔 채로** 둡니다. 창을 닫으면 화면도 꺼집니다.
 
 ### 6단계. 브라우저로 열기
 
@@ -154,7 +154,9 @@ node skills/obsidian-brain-3d/scripts/build-data.mjs "/Users/내이름/Documents
 - **Windows**: 탐색기 주소창을 눌러 경로를 복사합니다.
 - **Mac**: Finder에서 폴더를 고른 뒤 `Option + Command + C`를 누르면 경로가 복사됩니다.
 
-> **참고**
+> [!NOTE]
+> **참고:**
+>
 > - 경로에 띄어쓰기가 있으면 앞뒤를 큰따옴표 `" "`로 감쌉니다. 한글 폴더 이름도 그대로 됩니다.
 > - 옵시디언 보관함은 그 안에 `.obsidian`이라는 숨은 폴더가 들어 있는 폴더입니다.
 > - Mac에서 iCloud에 둔 보관함은 보통 `"$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/보관함이름"`에 있습니다.
@@ -200,8 +202,8 @@ node skills/obsidian-brain-3d/scripts/serve.mjs brain-site 8771
 | `no .md files found` | 그 폴더에 노트(`.md` 파일)가 없습니다 | 노트가 든 폴더를 지정합니다 |
 | `Cannot find module` | 3단계 폴더 밖에서 명령을 입력했습니다 | `cd`로 그 폴더에 다시 들어갑니다 |
 
-> **참고**
-> 노트가 수천 개면 처음 한 번은 수십 초 걸릴 수 있습니다.
+> [!NOTE]
+> **참고:** 노트가 수천 개면 처음 한 번은 수십 초 걸릴 수 있습니다.
 
 ## AI 엔진 탭
 
@@ -237,8 +239,8 @@ aiTools: [
 - 탭 이름은 `aiTabName`으로 바꿉니다(기본 「AI 엔진」, 버튼에는 다른 탭처럼 영문을 붙여 「AI 엔진 ENGINE」).
 - 주소에 `?mode=ai`를 붙이면 바로 이 탭으로 열립니다.
 
-> **참고**
-> `match`는 정규식(검색 규칙)이라 `. * ( ) [ ] \` 같은 기호에는 특별한 뜻이 있습니다. 낱말과 `|`만 쓰면 신경 쓰지 않아도 됩니다.
+> [!NOTE]
+> **참고:** `match`는 정규식(검색 규칙)이라 `. * ( ) [ ] \` 같은 기호에는 특별한 뜻이 있습니다. 낱말과 `|`만 쓰면 신경 쓰지 않아도 됩니다.
 
 ## 무엇이 필요한가요?
 
@@ -252,8 +254,8 @@ aiTools: [
 
 노트가 적다면 에이전트에게 노트를 정리하고 링크를 이어 달라고 먼저 요청하는 방법을 [SKILL.md](skills/obsidian-brain-3d/SKILL.md#노트가-아직-적다면-llm-위키처럼-키우기)에 적어 두었습니다.
 
-> **도움말**
-> 작성자처럼 AI가 정리하는 지식 저장고부터 만들려면 [obsidian-llm-wiki](https://github.com/reedodev/obsidian-llm-wiki)로 보관함을 먼저 만든 뒤 이 스킬로 그리면 됩니다.
+> [!TIP]
+> **도움말:** 작성자처럼 AI가 정리하는 지식 저장고부터 만들려면 [obsidian-llm-wiki](https://github.com/reedodev/obsidian-llm-wiki)로 보관함을 먼저 만든 뒤 이 스킬로 그리면 됩니다.
 
 ## 모양 바꾸기
 
@@ -277,8 +279,8 @@ AI 탭은 `?mode=ai`를 붙입니다. 말과 설정값의 대응표는 [SKILL.md
 
 화면 파일(`data.js`)에는 노트 본문은 들어가지 않지만, 제목과 그룹 이름, 날짜는 그대로 들어갑니다.
 
-> **주의**
-> 비공개 보관함의 화면을 캡처해 올리거나 공개하기 전에는 4단계 명령 끝에 `--hide-titles --hide-groups`를 붙여 다시 만듭니다.
+> [!WARNING]
+> **주의:** 비공개 보관함의 화면을 캡처해 올리거나 공개하기 전에는 4단계 명령 끝에 `--hide-titles --hide-groups`를 붙여 다시 만듭니다.
 
 그러면 노트 제목이 `그룹 #번호`로, 그룹 이름이 `Group A`~`Group F`로 바뀝니다. 자세한 주의점은 [SKILL.md](skills/obsidian-brain-3d/SKILL.md#공개할-때-주의)에 있습니다.
 

@@ -34,7 +34,7 @@ Six panels along the bottom show your real note titles, dates and link counts. B
 | 2. Build | Turn your notes into a viewer | `build-data.mjs` |
 | 3. Open | Start the viewer and open it in your browser | `serve.mjs` → `http://127.0.0.1:8770/` |
 
-> **Note**
+> [!NOTE]
 > Your notes are only read. Nothing is changed, deleted or uploaded anywhere.
 
 ## Your first 5 minutes
@@ -61,7 +61,7 @@ node --version
 - If you see a number above `v18` (for example `v22.11.0`), move on to Step 3.
 - If you see "is not recognized" or `command not found`, download the **LTS** version (the stable, long-term-support release) from [nodejs.org](https://nodejs.org) and install it.
 
-> **Tip**
+> [!TIP]
 > After installing Node.js, **close the terminal and open it again**, then check once more.
 
 ### Step 3. Get this folder
@@ -87,7 +87,7 @@ cd obsidian-brain-3d
 3. The unzipped folder is called `obsidian-brain-3d-main`.
 4. In the terminal, type `cd ` (cd followed by one space), drag that folder onto the terminal window, and press Enter.
 
-> **Check**
+> [!TIP]
 > Type `dir` on Windows or `ls` on Mac. If you see `README.md` and `skills`, you're in the right place.
 > Type every command below **from inside this folder**.
 
@@ -109,7 +109,7 @@ node skills/obsidian-brain-3d/scripts/serve.mjs brain-site
 
 When you see `serving ... at http://127.0.0.1:8770/`, the viewer is running.
 
-> **Important**
+> [!IMPORTANT]
 > **Leave this terminal open.** Closing the window turns the viewer off.
 
 ### Step 6. Open it in your browser
@@ -154,7 +154,7 @@ node skills/obsidian-brain-3d/scripts/build-data.mjs "/Users/YourName/Documents/
 - **Windows**: click the File Explorer address bar and copy it.
 - **Mac**: select the folder in Finder and press `Option + Command + C` to copy its path.
 
-> **Note**
+> [!NOTE]
 > - If the path contains spaces, wrap it in double quotes `" "`. Folder names in other languages (such as Korean) work as they are.
 > - An Obsidian vault is a folder that contains a hidden folder named `.obsidian`.
 > - On a Mac, a vault stored in iCloud is usually at `"$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/VaultName"`.
@@ -200,7 +200,7 @@ It's `http`, not `https`, and you need the `:8770/` at the end. Double-clicking 
 | `no .md files found` | That folder has no notes (`.md` files) | Point to the folder that holds your notes |
 | `Cannot find module` | You typed the command outside the folder from Step 3 | `cd` back into that folder |
 
-> **Note**
+> [!NOTE]
 > With thousands of notes, the first build can take a few dozen seconds.
 
 ## AI Engine tab
@@ -237,7 +237,7 @@ For example, `'claude|클로드'` counts notes whose **title** contains "claude"
 - Rename the tab with `aiTabName` (default 「AI 엔진」, Korean for "AI Engine"; like the other tabs, its button adds an English word: 「AI 엔진 ENGINE」).
 - Add `?mode=ai` to the address to open straight into this tab.
 
-> **Note**
+> [!NOTE]
 > `match` is technically a regular expression (a pattern-matching rule), so symbols like `. * ( ) [ ] \` have special meanings. If you only use plain words and `|`, you don't need to worry about this.
 
 ## What do I need?
@@ -252,7 +252,7 @@ That said, the viewer looks much richer when your notes:
 
 If you only have a few notes, [SKILL.md](skills/obsidian-brain-3d/SKILL.md#노트가-아직-적다면-llm-위키처럼-키우기) (in Korean) explains how to ask your AI agent to tidy them up and link them first.
 
-> **Tip**
+> [!TIP]
 > If you'd like to start, like the author, with a knowledge base that an AI keeps organized for you, build your vault with [obsidian-llm-wiki](https://github.com/reedodev/obsidian-llm-wiki) first and then draw it with this skill.
 
 ## Changing the look
@@ -277,7 +277,7 @@ For the AI tab, use `?mode=ai`. A table matching what you can say to each settin
 
 The viewer data file (`data.js`) does not contain your note bodies, but it does contain titles, group names and dates as they are.
 
-> **Warning**
+> [!WARNING]
 > Before posting screenshots of a private vault or publishing the viewer, rebuild with `--hide-titles --hide-groups` added to the end of the Step 4 command.
 
 After that, note titles become `그룹 #번호` ("Group #number") and group names become `Group A` to `Group F`. More precautions are listed in [SKILL.md](skills/obsidian-brain-3d/SKILL.md#공개할-때-주의) (in Korean).
