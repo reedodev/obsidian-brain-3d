@@ -12,11 +12,62 @@
 
 <p align="center"><img src="skills/obsidian-brain-3d/docs/preview.png" alt="옵시디언 3D 지식그래프 화면" width="100%"></p>
 
+## 처음 5분 따라 하기
+
+컴퓨터에 익숙하지 않아도 아래 순서대로 하면 됩니다. 먼저 함께 들어 있는 **예시 노트**로 화면을 띄워 보고, 잘 되면 내 보관함으로 바꿉니다. 내 노트는 읽기만 하고 고치거나 지우지 않으며, 인터넷에 올리지도 않습니다.
+
+1. **터미널 열기** (명령어를 글자로 입력하는 창)
+   - Windows: 시작 버튼을 누르고 `PowerShell`을 입력한 뒤 「Windows PowerShell」을 누릅니다.
+   - Mac: `Command(⌘) + Space`를 누르고 `터미널`(또는 `Terminal`)을 입력한 뒤 Enter를 누릅니다.
+2. **Node.js가 있는지 확인** (Node.js = 이 도구를 돌리는 무료 프로그램)
+   ```
+   node --version
+   ```
+   `v18`보다 큰 숫자(예: `v22.11.0`)가 나오면 다음으로 넘어갑니다. 「인식되지 않습니다」나 `command not found`가 나오면 [nodejs.org](https://nodejs.org)에서 **LTS**(오래 지원하는 안정판)를 받아 설치하고, 터미널을 **닫았다가 다시 연 뒤** 한 번 더 확인합니다.
+3. **이 폴더 받기** (둘 중 하나)
+   - git(파일 내려받기 도구)이 있으면:
+     ```
+     git clone https://github.com/reedodev/obsidian-brain-3d.git
+     cd obsidian-brain-3d
+     ```
+   - git이 없으면: 이 페이지 위쪽 초록색 **Code** 버튼 → **Download ZIP**을 누르고, 받은 파일의 압축을 풉니다(Windows는 오른쪽 클릭 → 「모두 압축 풀기」. 압축 파일 안에서 바로 실행하면 안 됩니다). 풀린 폴더 이름은 `obsidian-brain-3d-main`입니다. 터미널에 `cd `(cd 다음 띄어쓰기 한 칸)를 입력하고, 그 폴더를 터미널 창으로 끌어다 놓은 뒤 Enter를 누릅니다.
+   - 제대로 들어왔는지 확인: Windows는 `dir`, Mac은 `ls`를 입력했을 때 `README.md`와 `skills`가 보이면 됩니다. 아래 명령은 모두 **이 폴더 안에서** 입력합니다.
+4. **예시 노트로 화면 만들기** (한 줄을 그대로 복사해 붙여 넣습니다)
+   ```
+   node skills/obsidian-brain-3d/scripts/build-data.mjs skills/obsidian-brain-3d/examples/sample-vault --site brain-site
+   ```
+   마지막에 `Done / 완료`가 나오면 성공입니다. 화면 파일이 든 `brain-site` 폴더가 새로 생깁니다.
+5. **화면 켜기**
+   ```
+   node skills/obsidian-brain-3d/scripts/serve.mjs brain-site
+   ```
+   `serving ... at http://127.0.0.1:8770/`이 나오면 이 터미널은 **켜 둔 채로** 둡니다. 창을 닫으면 화면도 꺼집니다.
+6. **브라우저 주소창에 입력**: `http://127.0.0.1:8770/` (Chrome·Edge·Safari 최신판). 이 주소는 내 컴퓨터 안에서만 열리고 다른 사람은 볼 수 없습니다. 뇌가 보이면 `T` 세계수, `B` 뇌, `A` AI 엔진 탭입니다. 끌면 돌아가고 마우스 휠로 확대합니다.
+7. **내 보관함으로 바꾸기**: 5번 터미널에서 `Ctrl + C`로 끈 다음, 4번 명령의 예시 경로(`skills/obsidian-brain-3d/examples/sample-vault`) 자리에 **내 보관함 폴더 경로**를 넣고 4~6번을 다시 합니다.
+   ```
+   # Windows 예
+   node skills/obsidian-brain-3d/scripts/build-data.mjs "C:\Users\내이름\Documents\내 보관함" --site brain-site
+   # Mac 예
+   node skills/obsidian-brain-3d/scripts/build-data.mjs "/Users/내이름/Documents/내 보관함" --site brain-site
+   ```
+   - 경로를 모르면: 보관함 폴더를 터미널 창으로 끌어다 놓으면 경로가 저절로 입력됩니다. Windows 탐색기 주소창을 눌러 복사해도 되고, Mac Finder에서는 폴더를 고른 뒤 `Option + Command + C`로 경로를 복사합니다.
+   - 경로에 띄어쓰기가 있으면 앞뒤를 큰따옴표 `" "`로 감쌉니다. 한글 폴더 이름도 그대로 됩니다.
+   - 옵시디언 보관함은 그 안에 `.obsidian`이라는 숨은 폴더가 들어 있는 폴더입니다. Mac에서 iCloud에 둔 보관함은 보통 `"$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/보관함이름"`입니다.
+8. **끄기**: 화면을 켠 터미널을 누르고 `Ctrl + C`(Mac도 `control + C`)를 누릅니다. 다시 볼 때는 5번만 하면 되고, 노트가 늘었으면 4번(내 보관함은 7번)부터 다시 합니다.
+
+**화면이 안 뜰 때 확인할 것 3가지**
+
+1. **5번 터미널이 아직 켜져 있나요?** `serving ...` 글자가 보여야 합니다. 창을 닫았거나 `Ctrl + C`를 눌렀다면 5번을 다시 합니다. `Port 8770 is busy`가 나오면 끝에 다른 번호를 붙여(`node skills/obsidian-brain-3d/scripts/serve.mjs brain-site 8771`) 켜고, 주소도 `http://127.0.0.1:8771/`로 바꿉니다.
+2. **주소가 정확한가요?** `https`가 아니라 `http`이고, 끝의 `:8770/`까지 넣어야 합니다. `index.html` 파일을 두 번 눌러 열면 브라우저 설정에 따라 막힐 수 있으니, 이 주소로 여는 것을 기준으로 합니다.
+3. **검은 화면만 보이나요?** `Ctrl + F5`(Mac은 `Command + Shift + R`)로 새로 고침하고, Chrome이나 Edge 최신판으로 열어 봅니다. 3D를 그리는 기능(WebGL)이 꺼진 브라우저나 원격 접속 화면에서는 안 보일 수 있습니다. Chrome은 설정 → 시스템 → 「가능한 경우 그래픽 가속 사용」을 켭니다.
+
+그 밖에 자주 막히는 곳: 4번에서 `Folder not found`가 나오면 경로가 틀렸거나 따옴표가 빠진 것입니다. `no .md files found`면 그 폴더에 노트(`.md` 파일)가 없습니다. `Cannot find module`이 나오면 3번 폴더 밖에서 입력한 것이니 `cd`로 다시 들어갑니다. 노트가 수천 개면 처음 한 번은 수십 초 걸릴 수 있습니다.
+
 ### AI 엔진 탭
 
 <p align="center"><img src="skills/obsidian-brain-3d/docs/preview-ai.png" alt="AI 엔진 탭: 도구 타일이 빛줄기로 가운데 뇌에 연결되는 화면" width="100%"></p>
 
-도구 목록은 출력 폴더 `config.js`의 `aiTools`에 적습니다. 도구마다 `match`(정규식)로 **노트 제목**을 검사해 실제로 걸린 노트 수만 보여 주고, 숫자를 꾸며 넣지 않습니다. 아래 흐름 기록(log)은 실제 노트 제목을 차례로 보여 주는 연출입니다. `aiTools: []`로 비우면 탭이 사라지고, 탭 이름은 `aiTabName`으로 바꿉니다. 주소에 `?mode=ai`를 붙이면 바로 이 탭으로 열립니다.
+도구 목록은 출력 폴더(`brain-site`)의 `config.js`에서 `aiTools`에 적습니다. `match`에는 **도구 이름을 찾는 낱말**을 적고, 여러 개는 `|`(세로 막대, "또는"이라는 뜻)로 잇습니다. 예를 들어 `'claude|클로드'`는 **노트 제목**에 claude나 클로드가 들어간 노트를 셉니다. 영어 대소문자는 가리지 않고, 본문은 보지 않습니다. 실제로 걸린 노트 수만 보여 주고 숫자를 꾸며 넣지 않습니다. (`match`는 정규식이라는 검색 규칙이라 `. * ( ) [ ] \` 같은 기호에는 특별한 뜻이 있습니다. 낱말과 `|`만 쓰면 신경 쓰지 않아도 됩니다.) 아래 흐름 기록(log)은 실제 노트 제목을 차례로 보여 주는 연출입니다. `aiTools: []`로 비우면 탭이 사라지고, 탭 이름은 `aiTabName`(기본 「AI 엔진」, 버튼에는 다른 탭처럼 영문을 붙여 「AI 엔진 ENGINE」)으로 바꿉니다. 주소에 `?mode=ai`를 붙이면 바로 이 탭으로 열립니다.
 
 ```js
 aiTools: [
@@ -37,23 +88,36 @@ aiTools: [
 
 ## 설치
 
-**Claude Code 플러그인으로 설치**
+위 「처음 5분」은 직접 명령을 입력하는 방법입니다. Claude Code(터미널에서 쓰는 AI 도우미)를 쓴다면 스킬로 설치해 두고 "내 옵시디언 노트를 뇌 모양으로 보여 줘"처럼 말로 맡길 수도 있습니다.
+
+**Claude Code 플러그인으로 설치** (Claude Code 대화창에 입력)
 
 ```
 /plugin marketplace add reedodev/obsidian-brain-3d
 /plugin install obsidian-brain-3d@obsidian-brain-3d
 ```
 
+대화창 대신 터미널에서 같은 일을 하려면 `claude plugin marketplace add reedodev/obsidian-brain-3d` 다음 `claude plugin install obsidian-brain-3d@obsidian-brain-3d`를 입력합니다. `claude plugin list`에 `obsidian-brain-3d ... enabled`가 보이면 설치된 것입니다.
+
 **폴더만 복사**
 
 ```bash
+# Mac / Linux
 git clone https://github.com/reedodev/obsidian-brain-3d.git
+mkdir -p ~/.claude/skills
 cp -r obsidian-brain-3d/skills/obsidian-brain-3d ~/.claude/skills/
 ```
 
-필요한 것: Node 18+, 웹 브라우저
+```powershell
+# Windows PowerShell
+git clone https://github.com/reedodev/obsidian-brain-3d.git
+New-Item -ItemType Directory -Force "$HOME\.claude\skills" | Out-Null
+Copy-Item -Recurse obsidian-brain-3d\skills\obsidian-brain-3d "$HOME\.claude\skills\"
+```
 
-## 바로 해 보기
+필요한 것: Node.js 18 이상, 웹 브라우저(Chrome·Edge·Safari)
+
+## 바로 해 보기 (이미 익숙한 분)
 
 ```bash
 node skills/obsidian-brain-3d/scripts/build-data.mjs skills/obsidian-brain-3d/examples/sample-vault --site ./brain-site
@@ -86,23 +150,32 @@ node skills/obsidian-brain-3d/scripts/serve.mjs ./brain-site      # http://127.0
 
 ## English
 
-Render an Obsidian vault as points inside an x-ray brain and skull, switch to a world-tree layout with T, and see real note titles, dates and link counts. Press **A** for the third tab, **AI engine**: the tools you list in `config.js` (`aiTools: [{id, name, sub, color, match}]`) are linked to the brain by particle streams. Each count is the real number of note titles matching that tool's `match` regex; nothing is made up. `aiTools: []` hides the tab, `aiTabName` renames it, `?mode=ai` opens it directly. Optional title/group hiding for public sharing (with `--hide-titles` the AI tab shows hidden titles, and counts are taken from the real titles at build time).
+Render an Obsidian vault as points inside an x-ray brain and skull, switch to a world-tree layout with T, and see real note titles, dates and link counts. Press **A** for the third tab, **AI engine**: the tools you list in `config.js` (`aiTools: [{id, name, sub, color, match}]`) are linked to the brain by particle streams. `match` holds the word(s) that find the tool's name in a note **title**; join several with `|` (meaning "or"), e.g. `'chatgpt|gpt'`. It ignores upper/lower case and is technically a regular expression, so plain words and `|` are all you need. Each count is the real number of matching titles; nothing is made up. `aiTools: []` hides the tab, `aiTabName` renames it (default "AI 엔진", shown as "AI 엔진 ENGINE" like the other tabs), `?mode=ai` opens it directly. Optional title/group hiding for public sharing (with `--hide-titles` the AI tab shows hidden titles, and counts are taken from the real titles at build time).
 
 <p align="center"><img src="skills/obsidian-brain-3d/docs/preview-ai.png" alt="AI engine tab" width="100%"></p>
 
 **Credits.**
 - Started after seeing an [X post](https://x.com/karlarboledas/status/2111838109029552334) about [graphify](https://github.com/Graphify-Labs/graphify) and a brain-shaped dashboard video in it. No graphify code or design files were used; the viewer was written from scratch with three.js and pushed in a different direction (x-ray skull, world tree). Vault structure follows Karpathy's [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). The AI-tab layout idea came from an "AI setup" dashboard post by @yungeonu11 on Threads (no code or assets used; icons are abstract shapes, not product logos). Models: NIH 3D (CC BY 4.0); library: three.js (MIT). See [CREDITS.md](skills/obsidian-brain-3d/viewer/CREDITS.md).
 
-### Quick start (English)
+### Quick start (English, about 5 minutes)
 
-`ash
-git clone https://github.com/reedodev/obsidian-brain-3d.git && cd obsidian-brain-3d
-# 1. Build a site from any folder of .md notes (read-only, never writes into your vault)
-node skills/obsidian-brain-3d/scripts/build-data.mjs <your-vault> --site ./brain-site
-# 2. Serve it and open http://127.0.0.1:8770/  (keep this terminal open)
-node skills/obsidian-brain-3d/scripts/serve.mjs ./brain-site
-```
+You need **Node.js** (a free program that runs JavaScript tools on your computer) and a web browser. Your notes are only read, never changed, and nothing is uploaded.
 
-No vault yet? Use the bundled sample: `skills/obsidian-brain-3d/examples/sample-vault`. Press **T** to morph between the brain and the world tree, **B** for the brain, **A** for the AI tab. Everything runs locally; nothing is uploaded. Rebuild with `--hide-titles --hide-groups` (see SKILL.md) before sharing screenshots of a private vault.
+1. **Open a terminal** (a window where you type commands). Windows: press Start, type `PowerShell`, open "Windows PowerShell". Mac: press `Command + Space`, type `Terminal`, press Enter.
+2. **Check Node.js**: type `node --version`. Anything from `v18` up (e.g. `v22.11.0`) is fine. If you see "not recognized" or `command not found`, install the **LTS** (long-term support) version from [nodejs.org](https://nodejs.org), then close and reopen the terminal and check again.
+3. **Get this folder.** With git: `git clone https://github.com/reedodev/obsidian-brain-3d.git` then `cd obsidian-brain-3d`. Without git: green **Code** button → **Download ZIP**, unzip it (Windows: right-click → Extract All; do not run from inside the zip), type `cd ` (with a space) in the terminal, drag the `obsidian-brain-3d-main` folder onto the terminal window and press Enter. `dir` (Windows) or `ls` (Mac) should now list `README.md` and `skills`. Run every command below from this folder.
+4. **Build the sample**:
+   ```
+   node skills/obsidian-brain-3d/scripts/build-data.mjs skills/obsidian-brain-3d/examples/sample-vault --site brain-site
+   ```
+   It ends with `Done / 완료` and creates a `brain-site` folder.
+5. **Start the viewer**: `node skills/obsidian-brain-3d/scripts/serve.mjs brain-site`. When it prints `serving ... at http://127.0.0.1:8770/`, leave this terminal open.
+6. **Open** `http://127.0.0.1:8770/` in Chrome, Edge or Safari. Only your own computer can open it.
+7. **Use your own vault**: press `Ctrl + C` in the terminal, then repeat steps 4-6 with your vault folder in place of the sample path, in quotes, e.g. `"C:\Users\me\Documents\My Vault"` or `"/Users/me/Documents/My Vault"`. Tip: drag the folder onto the terminal to paste its path. An Obsidian vault is the folder that contains a hidden `.obsidian` folder.
+8. **Stop**: click the terminal and press `Ctrl + C` (also on Mac). Next time just do step 5.
+
+**Nothing shows up?** (1) Is the step-5 terminal still open and showing `serving ...`? If it says `Port 8770 is busy`, add another number (`... serve.mjs brain-site 8771`) and open `:8771`. (2) Is the address exactly `http://127.0.0.1:8770/` (http, not https)? Double-clicking `index.html` may be blocked by some browsers, so use this address. (3) Black screen? Hard-refresh (`Ctrl + F5` / `Command + Shift + R`) and try the latest Chrome or Edge with hardware acceleration on; 3D (WebGL) may not work over remote desktop. `Folder not found` means a wrong path or missing quotes; `Cannot find module` means you are not inside the folder from step 3.
+
+Press **T** to morph between the brain and the world tree, **B** for the brain, **A** for the AI tab. Everything runs locally; nothing is uploaded. Rebuild with `--hide-titles --hide-groups` (see SKILL.md) before sharing screenshots of a private vault.
 
 Install: `/plugin marketplace add reedodev/obsidian-brain-3d` then `/plugin install obsidian-brain-3d@obsidian-brain-3d`, or copy `skills/obsidian-brain-3d` into `~/.claude/skills/`. See [SKILL.md](skills/obsidian-brain-3d/SKILL.md) for the full procedure. MIT License; third-party models, fonts and libraries keep their own licenses.

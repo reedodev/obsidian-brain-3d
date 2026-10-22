@@ -51,7 +51,10 @@ const recentFrom = (B.stat && B.stat.recentFrom) || '';
 const recentN = recentFrom ? N.filter((n) => dateOf(n) >= recentFrom).length : 0;
 const EDGES = (B.stat && B.stat.edges) || (B.edges ? B.edges.length : 0);
 const BRAIN_NAME = String((B.stat && B.stat.title) || 'Knowledge Brain');
-const TAB_NAME = String(UC.aiTabName || 'AI 엔진 AI');
+const TAB_NAME = String(UC.aiTabName && UC.aiTabName !== 'AI 엔진 AI' ? UC.aiTabName : 'AI 엔진'); // 'AI 엔진 AI' = 예전 기본값
+// 다른 탭(브레인 BRAIN, 세계수 TREE)처럼 한글 이름 뒤에 영문을 붙입니다. 기본 이름일 때만 ENGINE, 이름을 바꾸면 aiTabEn 으로 직접 정합니다(빈 값이면 붙이지 않음).
+const TAB_EN = UC.aiTabEn != null ? String(UC.aiTabEn) : (TAB_NAME === 'AI 엔진' ? 'ENGINE' : '');
+const TAB_LABEL = TAB_EN && !TAB_NAME.toUpperCase().includes(TAB_EN.toUpperCase()) ? TAB_NAME + ' ' + TAB_EN : TAB_NAME;
 const HEAD = String(UC.aiTitle || `${TOOLS.length}개의 도구, 하나의 뇌`);
 
 /* ---------------- 화면 틀 ---------------- */
@@ -595,7 +598,7 @@ function close() {
   if (!on) return; on = false; window.__AI_ON = false; root.classList.remove('on'); tA.classList.remove('on'); cancelAnimationFrame(raf);
   const cc = $('ccby'); if (cc) cc.style.zIndex = '';
 }
-const tA = document.createElement('button'); tA.id = 'tA'; tA.textContent = TAB_NAME; tA.title = 'A';
+const tA = document.createElement('button'); tA.id = 'tA'; tA.textContent = TAB_LABEL; tA.title = 'A';
 const tT = $('tT'); if (tT) tT.after(tA); else ($('tabs') || document.body).appendChild(tA);
 tA.addEventListener('click', open);
 ['tB', 'tT'].forEach((id) => $(id) && $(id).addEventListener('click', close));

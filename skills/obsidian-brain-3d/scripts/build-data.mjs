@@ -45,7 +45,12 @@ for (let i = 0; i < argv.length; i++) {
   else pos.push(a);
 }
 const vault = pos[0];
-if (!vault || !fss.existsSync(vault) || !fss.statSync(vault).isDirectory()) {
+if (vault && (!fss.existsSync(vault) || !fss.statSync(vault).isDirectory())) {
+  console.error('Folder not found / 폴더를 찾지 못했습니다: ' + path.resolve(vault));
+  console.error('Check the path. If it has spaces, wrap it in quotes: "C:\\My Notes\\Vault"  /  경로에 띄어쓰기가 있으면 큰따옴표로 감싸세요.');
+  process.exit(2);
+}
+if (!vault) {
   console.error('usage: node build-data.mjs <vaultDir> [--site dir | --out data.js] [--group-by auto|folder|type|tag] [--hide-titles] ...');
   process.exit(2);
 }
@@ -96,7 +101,7 @@ for (const f of files) {
   const { fm, body } = frontmatter(text);
   const clean = body.replace(/```[\s\S]*?```/g, '').replace(/`[^`]*`/g, '');
   const links = [];
-  for (const m of clean.matchAll(/\[\[([^\]|#^]+)/g)) links.push(m[1].trim());
+  for (const m of clean.matchAll(/\[\[([^\]|#^]+)/g)) links.push(m[1].replace(/\\+$/, '').trim()); // [[note\|alias]] inside tables
   for (const m of clean.matchAll(/\]\(([^)\s]+?\.md)\)/gi)) { try { links.push(decodeURIComponent(m[1])); } catch { links.push(m[1]); } }
   const tags = listOf(fm.tags || fm.tag);
   if (!tags.length) for (const m of clean.matchAll(/(?:^|\s)#([^\s#.,;:!?()\[\]{}"']+)/g)) { tags.push(m[1]); if (tags.length > 3) break; }
@@ -252,5 +257,10 @@ if (outFile.startsWith(path.resolve(vault) + path.sep)) { console.error('refusin
 await fs.writeFile(outFile, js);
 console.log(JSON.stringify({
   out: outFile, notes: docs.length, links: edges.length, drawn: drawEdges.length, hubsExcluded: hubs, hubLimit,
-  unresolvedLinks: unresolved, groupBy: mode, regions: regions.map((r) => `${r.name}:${r.count}`), kb: Math.round(js.length / 1024), ms: Date.now() - t0,
+  unresolvedLinks: unresolved, groupBy: mode, regions: regions.map((r) => `${r.name}:${r.count}`), kb: Math.round(Buffer.byteLength(js, 'utf8') / 1024), ms: Date.now() - t0,
 }, null, 1));
+if (!opts.out) {
+  const rel = path.relative(process.cwd(), path.dirname(outFile)) || '.';
+  const serveJs = path.relative(process.cwd(), path.join(here, 'serve.mjs'));
+  console.log(`\nDone / 완료. Next / 다음:\n  node "${serveJs}" "${rel}"\n  then open / 그다음 브라우저 주소: http://127.0.0.1:8770/`);
+}

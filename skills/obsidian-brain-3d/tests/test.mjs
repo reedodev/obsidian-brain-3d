@@ -43,7 +43,9 @@ const loadCfg = (src) => { const box = { window: {} }; vm.runInNewContext(src, b
 const cfg = loadCfg(fs.readFileSync(path.join(viewer, 'config.js'), 'utf8'));
 if (!Array.isArray(cfg.aiTools) || !cfg.aiTools.length) fail('config.js has no aiTools example');
 if (JSON.stringify(cfg.aiTools.map((t) => [t.id, t.match])) !== JSON.stringify(defaults.map((t) => [t.id, t.match]))) fail('config.js aiTools and ai-engine.js defaults differ');
-if (!cfg.aiTabName) fail('config.js has no aiTabName');
+if (cfg.aiTabName !== 'AI 엔진') fail('config.js aiTabName should be AI 엔진, got ' + cfg.aiTabName);
+if (!/UC\.aiTabName[^;]*'AI 엔진'\)/.test(engine) || /\|\| 'AI 엔진 AI'/.test(engine)) fail('ai-engine.js default tab name should be AI 엔진');
+for (const f of ['config.js', 'ai-engine.js']) if (/aiTabName: 'AI 엔진 AI'|\|\| 'AI 엔진 AI'/.test(fs.readFileSync(path.join(viewer, f), 'utf8'))) fail(f + ' still uses the old AI 엔진 AI default');
 // public build must not carry personal tools, music or sound
 for (const w of ['Hermes', 'OpenClaw', 'JEV', 'Hermes Agent', '닷츠', 'Reedo', '리도', 'Suno', 'music.js', 'bell(', 'AudioContext']) {
   if (engine.includes(w) || fs.readFileSync(path.join(viewer, 'config.js'), 'utf8').includes(w)) fail('AI tab contains a private/music word: ' + w);
