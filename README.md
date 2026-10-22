@@ -1,4 +1,6 @@
-<p align="center"><img src="docs/banner.png" alt="옵시디언 3D 지식그래프: 내 노트가 엑스레이 뇌와 세계수로 보입니다" width="100%"></p>
+<p align="center"><b>English</b> | <a href="README.ko.md">한국어</a></p>
+
+<p align="center"><img src="docs/banner.png" alt="Obsidian 3D knowledge graph: your notes shown as an x-ray brain and a world tree" width="100%"></p>
 
 <p align="center">
 <a href="https://github.com/reedodev/obsidian-brain-3d/actions/workflows/test.yml"><img src="https://github.com/reedodev/obsidian-brain-3d/actions/workflows/test.yml/badge.svg" alt="test"></a>
@@ -6,68 +8,68 @@
 <img src="https://img.shields.io/badge/license-MIT-black" alt="MIT">
 </p>
 
-# 옵시디언 3D 지식그래프 (obsidian-brain-3d)
+# Obsidian 3D Knowledge Graph (obsidian-brain-3d)
 
-옵시디언 노트 보관함을 엑스레이 뇌·두개골 속 점으로 보여 주고, T 키 하나로 세계수 모양으로 바꿉니다. A 키를 누르면 세 번째 탭 「AI 엔진」에서 내가 쓰는 도구들이 빛줄기로 가운데 뇌에 연결됩니다. 아래 여섯 칸에는 실제 노트 제목·날짜·연결 수가 나오고, 공개할 때는 제목과 분류 이름을 가릴 수 있습니다.
+Turn your Obsidian vault into glowing points inside an x-ray brain and skull, then press a single key, T, to morph it into a world tree. Press A to open the third tab, 「AI 엔진」 ("AI Engine"), where the tools you use are linked to the brain in the middle by streams of light. Six panels along the bottom show your real note titles, dates and link counts, and you can hide titles and group names before sharing anything publicly.
 
-<p align="center"><img src="skills/obsidian-brain-3d/docs/preview.png" alt="옵시디언 3D 지식그래프 화면" width="100%"></p>
+<p align="center"><img src="skills/obsidian-brain-3d/docs/preview.png" alt="Obsidian 3D knowledge graph viewer showing notes as points inside a brain" width="100%"></p>
 
-## 처음 5분 따라 하기
+## Your first 5 minutes
 
-컴퓨터에 익숙하지 않아도 아래 순서대로 하면 됩니다. 먼저 함께 들어 있는 **예시 노트**로 화면을 띄워 보고, 잘 되면 내 보관함으로 바꿉니다. 내 노트는 읽기만 하고 고치거나 지우지 않으며, 인터넷에 올리지도 않습니다.
+You don't need to be comfortable with computers. Just follow these steps in order. First you'll open the viewer with the **sample notes** that come with this project, and once that works you'll switch to your own vault. Your notes are only read: nothing is changed, deleted or uploaded anywhere.
 
-1. **터미널 열기** (명령어를 글자로 입력하는 창)
-   - Windows: 시작 버튼을 누르고 `PowerShell`을 입력한 뒤 「Windows PowerShell」을 누릅니다.
-   - Mac: `Command(⌘) + Space`를 누르고 `터미널`(또는 `Terminal`)을 입력한 뒤 Enter를 누릅니다.
-2. **Node.js가 있는지 확인** (Node.js = 이 도구를 돌리는 무료 프로그램)
+1. **Open a terminal** (a window where you type commands as text)
+   - Windows: click the Start button, type `PowerShell`, then click "Windows PowerShell".
+   - Mac: press `Command (⌘) + Space`, type `Terminal`, then press Enter.
+2. **Check that Node.js is installed** (Node.js is a free program that runs this tool)
    ```
    node --version
    ```
-   `v18`보다 큰 숫자(예: `v22.11.0`)가 나오면 다음으로 넘어갑니다. 「인식되지 않습니다」나 `command not found`가 나오면 [nodejs.org](https://nodejs.org)에서 **LTS**(오래 지원하는 안정판)를 받아 설치하고, 터미널을 **닫았다가 다시 연 뒤** 한 번 더 확인합니다.
-3. **이 폴더 받기** (둘 중 하나)
-   - git(파일 내려받기 도구)이 있으면:
+   If you see a number above `v18` (for example `v22.11.0`), move on. If you see "is not recognized" or `command not found`, download the **LTS** version (the stable, long-term-support release) from [nodejs.org](https://nodejs.org) and install it. Then **close the terminal, open it again** and check once more.
+3. **Get this folder** (pick one)
+   - If you have git (a tool for downloading code):
      ```
      git clone https://github.com/reedodev/obsidian-brain-3d.git
      cd obsidian-brain-3d
      ```
-   - git이 없으면: 이 페이지 위쪽 초록색 **Code** 버튼 → **Download ZIP**을 누르고, 받은 파일의 압축을 풉니다(Windows는 오른쪽 클릭 → 「모두 압축 풀기」. 압축 파일 안에서 바로 실행하면 안 됩니다). 풀린 폴더 이름은 `obsidian-brain-3d-main`입니다. 터미널에 `cd `(cd 다음 띄어쓰기 한 칸)를 입력하고, 그 폴더를 터미널 창으로 끌어다 놓은 뒤 Enter를 누릅니다.
-   - 제대로 들어왔는지 확인: Windows는 `dir`, Mac은 `ls`를 입력했을 때 `README.md`와 `skills`가 보이면 됩니다. 아래 명령은 모두 **이 폴더 안에서** 입력합니다.
-4. **예시 노트로 화면 만들기** (한 줄을 그대로 복사해 붙여 넣습니다)
+   - If you don't have git: click the green **Code** button near the top of this page → **Download ZIP**, then unzip the file (on Windows, right-click → "Extract All". Running it from inside the zip file won't work). The unzipped folder is called `obsidian-brain-3d-main`. In the terminal, type `cd ` (cd followed by one space), drag that folder onto the terminal window, and press Enter.
+   - To check you're in the right place: type `dir` on Windows or `ls` on Mac. If you see `README.md` and `skills`, you're good. Type every command below **from inside this folder**.
+4. **Build the viewer from the sample notes** (copy and paste this line exactly)
    ```
    node skills/obsidian-brain-3d/scripts/build-data.mjs skills/obsidian-brain-3d/examples/sample-vault --site brain-site
    ```
-   마지막에 `Done / 완료`가 나오면 성공입니다. 화면 파일이 든 `brain-site` 폴더가 새로 생깁니다.
-5. **화면 켜기**
+   If it ends with `Done / 완료` ("Done"), it worked. A new `brain-site` folder with the viewer files is created.
+5. **Start the viewer**
    ```
    node skills/obsidian-brain-3d/scripts/serve.mjs brain-site
    ```
-   `serving ... at http://127.0.0.1:8770/`이 나오면 이 터미널은 **켜 둔 채로** 둡니다. 창을 닫으면 화면도 꺼집니다.
-6. **브라우저 주소창에 입력**: `http://127.0.0.1:8770/` (Chrome·Edge·Safari 최신판). 이 주소는 내 컴퓨터 안에서만 열리고 다른 사람은 볼 수 없습니다. 뇌가 보이면 `T` 세계수, `B` 뇌, `A` AI 엔진 탭입니다. 끌면 돌아가고 마우스 휠로 확대합니다.
-7. **내 보관함으로 바꾸기**: 5번 터미널에서 `Ctrl + C`로 끈 다음, 4번 명령의 예시 경로(`skills/obsidian-brain-3d/examples/sample-vault`) 자리에 **내 보관함 폴더 경로**를 넣고 4~6번을 다시 합니다.
+   When you see `serving ... at http://127.0.0.1:8770/`, **leave this terminal open**. Closing the window turns the viewer off.
+6. **Type this into your browser's address bar**: `http://127.0.0.1:8770/` (latest Chrome, Edge or Safari). This address only opens on your own computer; nobody else can see it. Once the brain appears, press `T` for the world tree, `B` for the brain and `A` for the AI Engine tab. Drag to rotate and use the mouse wheel to zoom.
+7. **Switch to your own vault**: in the terminal from step 5, press `Ctrl + C` to stop it. Then repeat steps 4 to 6, replacing the sample path in step 4 (`skills/obsidian-brain-3d/examples/sample-vault`) with **the path to your vault folder**.
    ```
-   # Windows 예
-   node skills/obsidian-brain-3d/scripts/build-data.mjs "C:\Users\내이름\Documents\내 보관함" --site brain-site
-   # Mac 예
-   node skills/obsidian-brain-3d/scripts/build-data.mjs "/Users/내이름/Documents/내 보관함" --site brain-site
+   # Windows example
+   node skills/obsidian-brain-3d/scripts/build-data.mjs "C:\Users\YourName\Documents\My Vault" --site brain-site
+   # Mac example
+   node skills/obsidian-brain-3d/scripts/build-data.mjs "/Users/YourName/Documents/My Vault" --site brain-site
    ```
-   - 경로를 모르면: 보관함 폴더를 터미널 창으로 끌어다 놓으면 경로가 저절로 입력됩니다. Windows 탐색기 주소창을 눌러 복사해도 되고, Mac Finder에서는 폴더를 고른 뒤 `Option + Command + C`로 경로를 복사합니다.
-   - 경로에 띄어쓰기가 있으면 앞뒤를 큰따옴표 `" "`로 감쌉니다. 한글 폴더 이름도 그대로 됩니다.
-   - 옵시디언 보관함은 그 안에 `.obsidian`이라는 숨은 폴더가 들어 있는 폴더입니다. Mac에서 iCloud에 둔 보관함은 보통 `"$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/보관함이름"`입니다.
-8. **끄기**: 화면을 켠 터미널을 누르고 `Ctrl + C`(Mac도 `control + C`)를 누릅니다. 다시 볼 때는 5번만 하면 되고, 노트가 늘었으면 4번(내 보관함은 7번)부터 다시 합니다.
+   - Don't know the path? Drag your vault folder onto the terminal window and the path is typed in for you. On Windows you can also click the File Explorer address bar and copy it; on Mac, select the folder in Finder and press `Option + Command + C` to copy its path.
+   - If the path contains spaces, wrap it in double quotes `" "`. Folder names in other languages (such as Korean) work as they are.
+   - An Obsidian vault is a folder that contains a hidden folder named `.obsidian`. On a Mac, a vault stored in iCloud is usually at `"$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/VaultName"`.
+8. **Turn it off**: click the terminal running the viewer and press `Ctrl + C` (also `control + C` on Mac). To view it again later, just do step 5. If you've added notes, start again from step 4 (step 7 for your own vault).
 
-**화면이 안 뜰 때 확인할 것 3가지**
+### Nothing shows up? Check these 3 things
 
-1. **5번 터미널이 아직 켜져 있나요?** `serving ...` 글자가 보여야 합니다. 창을 닫았거나 `Ctrl + C`를 눌렀다면 5번을 다시 합니다. `Port 8770 is busy`가 나오면 끝에 다른 번호를 붙여(`node skills/obsidian-brain-3d/scripts/serve.mjs brain-site 8771`) 켜고, 주소도 `http://127.0.0.1:8771/`로 바꿉니다.
-2. **주소가 정확한가요?** `https`가 아니라 `http`이고, 끝의 `:8770/`까지 넣어야 합니다. `index.html` 파일을 두 번 눌러 열면 브라우저 설정에 따라 막힐 수 있으니, 이 주소로 여는 것을 기준으로 합니다.
-3. **검은 화면만 보이나요?** `Ctrl + F5`(Mac은 `Command + Shift + R`)로 새로 고침하고, Chrome이나 Edge 최신판으로 열어 봅니다. 3D를 그리는 기능(WebGL)이 꺼진 브라우저나 원격 접속 화면에서는 안 보일 수 있습니다. Chrome은 설정 → 시스템 → 「가능한 경우 그래픽 가속 사용」을 켭니다.
+1. **Is the terminal from step 5 still running?** You should see the `serving ...` text. If you closed the window or pressed `Ctrl + C`, do step 5 again. If it says `Port 8770 is busy`, add a different number at the end (`node skills/obsidian-brain-3d/scripts/serve.mjs brain-site 8771`) and change the address to `http://127.0.0.1:8771/` as well.
+2. **Is the address exactly right?** It's `http`, not `https`, and you need the `:8770/` at the end. Double-clicking `index.html` to open it may be blocked depending on your browser settings, so always use this address.
+3. **Only a black screen?** Hard-refresh with `Ctrl + F5` (`Command + Shift + R` on Mac) and try the latest Chrome or Edge. The viewer may not appear in browsers where 3D drawing (WebGL) is turned off, or over a remote-desktop connection. In Chrome, go to Settings → System and turn on "Use graphics acceleration when available".
 
-그 밖에 자주 막히는 곳: 4번에서 `Folder not found`가 나오면 경로가 틀렸거나 따옴표가 빠진 것입니다. `no .md files found`면 그 폴더에 노트(`.md` 파일)가 없습니다. `Cannot find module`이 나오면 3번 폴더 밖에서 입력한 것이니 `cd`로 다시 들어갑니다. 노트가 수천 개면 처음 한 번은 수십 초 걸릴 수 있습니다.
+Other common snags: `Folder not found` in step 4 means the path is wrong or the quotes are missing. `no .md files found` means that folder has no notes (`.md` files). `Cannot find module` means you typed the command outside the folder from step 3, so `cd` back into it. With thousands of notes, the first build can take a few dozen seconds.
 
-### AI 엔진 탭
+### AI Engine tab
 
-<p align="center"><img src="skills/obsidian-brain-3d/docs/preview-ai.png" alt="AI 엔진 탭: 도구 타일이 빛줄기로 가운데 뇌에 연결되는 화면" width="100%"></p>
+<p align="center"><img src="skills/obsidian-brain-3d/docs/preview-ai.png" alt="AI Engine tab: tool tiles connected to the central brain by streams of light" width="100%"></p>
 
-도구 목록은 출력 폴더(`brain-site`)의 `config.js`에서 `aiTools`에 적습니다. `match`에는 **도구 이름을 찾는 낱말**을 적고, 여러 개는 `|`(세로 막대, "또는"이라는 뜻)로 잇습니다. 예를 들어 `'claude|클로드'`는 **노트 제목**에 claude나 클로드가 들어간 노트를 셉니다. 영어 대소문자는 가리지 않고, 본문은 보지 않습니다. 실제로 걸린 노트 수만 보여 주고 숫자를 꾸며 넣지 않습니다. (`match`는 정규식이라는 검색 규칙이라 `. * ( ) [ ] \` 같은 기호에는 특별한 뜻이 있습니다. 낱말과 `|`만 쓰면 신경 쓰지 않아도 됩니다.) 아래 흐름 기록(log)은 실제 노트 제목을 차례로 보여 주는 연출입니다. `aiTools: []`로 비우면 탭이 사라지고, 탭 이름은 `aiTabName`(기본 「AI 엔진」, 버튼에는 다른 탭처럼 영문을 붙여 「AI 엔진 ENGINE」)으로 바꿉니다. 주소에 `?mode=ai`를 붙이면 바로 이 탭으로 열립니다.
+You list your tools under `aiTools` in `config.js` inside the output folder (`brain-site`). In `match`, write **the word(s) used to find the tool's name**; join several with `|` (a vertical bar meaning "or"). For example, `'claude|클로드'` counts notes whose **title** contains "claude" or "클로드" (Claude written in Korean). Upper and lower case don't matter, and note bodies are not searched. Only the number of notes that actually match is shown; no numbers are made up. (`match` is technically a regular expression, a pattern-matching rule, so symbols like `. * ( ) [ ] \` have special meanings. If you only use plain words and `|`, you don't need to worry about this.) The flow log at the bottom is an animation that shows real note titles one after another. Set `aiTools: []` to remove the tab. Rename the tab with `aiTabName` (default 「AI 엔진」, Korean for "AI Engine"; like the other tabs, its button adds an English word: 「AI 엔진 ENGINE」). Add `?mode=ai` to the address to open straight into this tab.
 
 ```js
 aiTools: [
@@ -76,30 +78,36 @@ aiTools: [
 ]
 ```
 
-## 무엇이 필요한가요?
+(`sub` is the small caption under each tool name. In this example it is Korean for "note vault" and "writing · coding"; you can write it in any language.)
 
-**`.md` 파일이 든 폴더 하나**면 됩니다. 옵시디언 앱이나 AI가 관리하는 LLM 위키가 꼭 있어야 하는 것은 아닙니다. 다만 노트끼리 `[[링크]]`가 걸려 있고, 폴더나 머리말 `type`으로 나뉘어 있고, `created` 날짜가 있으면 화면이 훨씬 풍성해집니다. 노트가 적다면 에이전트에게 노트를 정리하고 링크를 이어 달라고 먼저 요청하는 방법을 [SKILL.md](skills/obsidian-brain-3d/SKILL.md#노트가-아직-적다면-llm-위키처럼-키우기)에 적어 두었습니다.
+## What do I need?
 
-작성자처럼 AI가 정리하는 지식 저장고부터 만들려면 [obsidian-llm-wiki](https://github.com/reedodev/obsidian-llm-wiki)로 보관함을 먼저 만든 뒤 이 스킬로 그리면 됩니다.
+**Just one folder of `.md` files.** You don't strictly need the Obsidian app or an AI-maintained "LLM wiki". That said, the viewer looks much richer when your notes link to each other with `[[links]]`, are organized by folder or by a `type` field in the front matter (the small settings block at the top of a note), and have a `created` date. If you only have a few notes, [SKILL.md](skills/obsidian-brain-3d/SKILL.md#노트가-아직-적다면-llm-위키처럼-키우기) (in Korean) explains how to ask your AI agent to tidy them up and link them first.
 
-## 모양 바꾸기
+If you'd like to start, like the author, with a knowledge base that an AI keeps organized for you, build your vault with [obsidian-llm-wiki](https://github.com/reedodev/obsidian-llm-wiki) first and then draw it with this skill.
 
-출력 폴더의 `config.js` 한 파일에서 바꿉니다. 에이전트에게 "세계수 화면으로 먼저 열리게 해 줘", "배경을 우주로", "해골 빼고 뇌만", "영역 색을 따뜻한 색으로", "AI 탭에 Cursor 넣어 줘"처럼 말하면 됩니다. 파일을 고치지 않고 시험해 보려면 주소 뒤에 `?mode=tree&bg=space&skull=0`(AI 탭은 `?mode=ai`)처럼 붙입니다. 말과 설정값의 대응표는 [SKILL.md](skills/obsidian-brain-3d/SKILL.md#모양-바꾸기-이렇게-말하세요)에 있습니다.
+## Changing the look
 
-## 설치
+Everything is changed in one file: `config.js` in the output folder. Just tell your agent things like "open in the world tree view first", "make the background outer space", "brain only, no skull", "use warm colors for the regions" or "add Cursor to the AI tab". To try something without editing the file, add options to the address, such as `?mode=tree&bg=space&skull=0` (or `?mode=ai` for the AI tab). A table matching what you can say to each setting is in [SKILL.md](skills/obsidian-brain-3d/SKILL.md#모양-바꾸기-이렇게-말하세요) (in Korean; the setting names are in English).
 
-위 「처음 5분」은 직접 명령을 입력하는 방법입니다. Claude Code(터미널에서 쓰는 AI 도우미)를 쓴다면 스킬로 설치해 두고 "내 옵시디언 노트를 뇌 모양으로 보여 줘"처럼 말로 맡길 수도 있습니다.
+## Before sharing
 
-**Claude Code 플러그인으로 설치** (Claude Code 대화창에 입력)
+The viewer data file (`data.js`) does not contain your note bodies, but it does contain titles, group names and dates as they are. Before posting screenshots of a private vault or publishing the viewer, rebuild with `--hide-titles --hide-groups` added to the end of the step 4 command. Note titles then become `그룹 #번호` ("Group #number") and group names become `Group A` to `Group F`. More precautions are listed in [SKILL.md](skills/obsidian-brain-3d/SKILL.md#공개할-때-주의) (in Korean).
+
+## Install
+
+"Your first 5 minutes" above is the type-the-commands-yourself way. If you use Claude Code (an AI assistant that runs in your terminal), you can install this as a skill and simply ask, for example, "show my Obsidian notes as a brain".
+
+**Install as a Claude Code plugin** (type these into the Claude Code chat)
 
 ```
 /plugin marketplace add reedodev/obsidian-brain-3d
 /plugin install obsidian-brain-3d@obsidian-brain-3d
 ```
 
-대화창 대신 터미널에서 같은 일을 하려면 `claude plugin marketplace add reedodev/obsidian-brain-3d` 다음 `claude plugin install obsidian-brain-3d@obsidian-brain-3d`를 입력합니다. `claude plugin list`에 `obsidian-brain-3d ... enabled`가 보이면 설치된 것입니다.
+To do the same from a regular terminal instead of the chat, run `claude plugin marketplace add reedodev/obsidian-brain-3d` and then `claude plugin install obsidian-brain-3d@obsidian-brain-3d`. If `claude plugin list` shows `obsidian-brain-3d ... enabled`, it's installed.
 
-**폴더만 복사**
+**Or just copy the folder**
 
 ```bash
 # Mac / Linux
@@ -115,67 +123,37 @@ New-Item -ItemType Directory -Force "$HOME\.claude\skills" | Out-Null
 Copy-Item -Recurse obsidian-brain-3d\skills\obsidian-brain-3d "$HOME\.claude\skills\"
 ```
 
-필요한 것: Node.js 18 이상, 웹 브라우저(Chrome·Edge·Safari)
+Requirements: Node.js 18 or later and a web browser (Chrome, Edge or Safari).
 
-## 바로 해 보기 (이미 익숙한 분)
+## Quick try (for experienced users)
 
 ```bash
 node skills/obsidian-brain-3d/scripts/build-data.mjs skills/obsidian-brain-3d/examples/sample-vault --site ./brain-site
 node skills/obsidian-brain-3d/scripts/serve.mjs ./brain-site      # http://127.0.0.1:8770/
 ```
 
-자세한 절차, 옵션, 한계는 [SKILL.md](skills/obsidian-brain-3d/SKILL.md)에 있습니다. 에이전트가 이 파일을 읽고 그대로 따릅니다.
+The full procedure, options and limitations are in [SKILL.md](skills/obsidian-brain-3d/SKILL.md) (written in Korean). Your agent reads that file and follows it step by step.
 
-## 시험
+## Tests
 
-`node tests/run.mjs`가 SKILL.md 형식을 검사하고 예시 파일로 스크립트를 실제로 실행합니다. 푸시할 때마다 GitHub Actions가 같은 시험을 돌립니다(위 test 배지).
+`node tests/run.mjs` checks the SKILL.md format, checks every link, heading anchor and image path in both READMEs, and actually runs the scripts on the sample files. GitHub Actions runs the same tests on every push (the test badge above).
 
 <!-- credits -->
-## 출처와 영감
+## Credits and inspiration
 
-- **계기와 화면 영감**: 폴더를 지식 그래프로 바꾸는 [graphify](https://github.com/Graphify-Labs/graphify)를 소개한 [X 게시물](https://x.com/karlarboledas/status/2111838109029552334)과 그 안의 뇌 모양 대시보드 영상을 보고 "내 노트도 뇌처럼 보이게 할 수 있을까"에서 시작했습니다. graphify의 코드나 그 영상의 디자인 파일은 쓰지 않았고, 화면은 three.js로 새로 만들었습니다. 겉모양이 비슷해 보이지 않도록 엑스레이·두개골·세계수 방향으로 바꿨습니다.
-- **노트 저장고 방식**: 작성자의 보관함은 Andrej Karpathy의 [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) 방식으로 운영하며, 그 구조는 [obsidian-llm-wiki](https://github.com/reedodev/obsidian-llm-wiki)에 정리했습니다.
-- **연결선과 그래프라는 생각**: 옵시디언의 그래프 보기처럼 `[[링크]]`를 선으로 잇는 방식을 따랐습니다.
-- **AI 엔진 탭**: 도구 타일이 빛나는 가운데 코어와 입자 물줄기로 이어지는 배치는 Threads @yungeonu11의 "AI 셋업" 대시보드 게시물에서 착안했습니다. 그 게시물의 코드·이미지·디자인 파일은 쓰지 않았고, 도구 아이콘은 제품 로고가 아닌 추상 모양입니다. 소리·음악 파일은 넣지 않았습니다.
-- **3D 모델과 라이브러리**: 뇌·두개골 모델은 NIH 3D(CC BY 4.0), 3D 그리기는 three.js(MIT)입니다. 자세한 출처는 [CREDITS.md](skills/obsidian-brain-3d/viewer/CREDITS.md)에 있습니다.
+- **How it started and the visual idea**: It began with an [X post](https://x.com/karlarboledas/status/2111838109029552334) introducing [graphify](https://github.com/Graphify-Labs/graphify), which turns a folder into a knowledge graph, and the brain-shaped dashboard video in that post, which made me wonder, "Could my notes look like a brain too?" No graphify code or design files from that video were used; the viewer was built from scratch with three.js. To keep it from looking like a copy, it went in a different direction: x-ray, skull and world tree.
+- **How the vault is organized**: The author's vault follows Andrej Karpathy's [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) approach, and that structure is documented in [obsidian-llm-wiki](https://github.com/reedodev/obsidian-llm-wiki).
+- **Links as lines in a graph**: Like Obsidian's Graph view, each `[[link]]` is drawn as a line.
+- **AI Engine tab**: The layout of tool tiles connected to a glowing central core by particle streams was inspired by an "AI setup" dashboard post by @yungeonu11 on Threads. No code, images or design files from that post were used, and the tool icons are abstract shapes, not product logos. No sound or music files are included.
+- **3D models and libraries**: The brain and skull models come from NIH 3D (CC BY 4.0), and 3D rendering uses three.js (MIT). Full details are in [CREDITS.md](skills/obsidian-brain-3d/viewer/CREDITS.md).
 
-## 만든 사람
+## About the author
 
-**리도**, AI 좌충우돌 실습 중인 20년차 엔지니어입니다. 매일 AI에게 일을 맡기다가 막힌 부분을 고쳐 가며 이 스킬을 만들었습니다.
+**Reedo**, an engineer with 20 years of experience who is learning AI hands-on, mistakes and all. This skill grew out of handing work to AI every day and fixing whatever got stuck along the way.
 [YouTube @Reedodev](https://www.youtube.com/@Reedodev) · [Threads @reedo.dev](https://www.threads.com/@reedo.dev) · [GitHub @reedodev](https://github.com/reedodev)
 
-같이 만든 다른 스킬: [노트 먼저 찾아보기](https://github.com/reedodev/vault-recall) · [작업 기록 강의자료](https://github.com/reedodev/work-to-lecture-deck) · [한국어 말투 점검](https://github.com/reedodev/korean-tone-check) · [네이버 황금키워드](https://github.com/reedodev/naver-golden-keywords) · [한글 양식 채우기](https://github.com/reedodev/hwpx-form-fill) · [TTS 끝소리 고치기](https://github.com/reedodev/tts-tail-fix) · [카드뉴스 렌더](https://github.com/reedodev/html-card-render) · [영상 비율 검사](https://github.com/reedodev/social-video-gate) · [유튜브 게시 점검](https://github.com/reedodev/youtube-publish-checklist)
+Other skills by the same author: [Check your notes first (vault-recall)](https://github.com/reedodev/vault-recall) · [Turn work logs into lecture decks (work-to-lecture-deck)](https://github.com/reedodev/work-to-lecture-deck) · [Korean tone check (korean-tone-check)](https://github.com/reedodev/korean-tone-check) · [Naver "golden keywords" finder (naver-golden-keywords)](https://github.com/reedodev/naver-golden-keywords) · [Fill Korean HWPX forms (hwpx-form-fill)](https://github.com/reedodev/hwpx-form-fill) · [Fix clipped TTS endings (tts-tail-fix)](https://github.com/reedodev/tts-tail-fix) · [Render card news from HTML (html-card-render)](https://github.com/reedodev/html-card-render) · [Social video aspect-ratio check (social-video-gate)](https://github.com/reedodev/social-video-gate) · [YouTube publishing checklist (youtube-publish-checklist)](https://github.com/reedodev/youtube-publish-checklist)
 
----
+## License
 
-## English
-
-Render an Obsidian vault as points inside an x-ray brain and skull, switch to a world-tree layout with T, and see real note titles, dates and link counts. Press **A** for the third tab, **AI engine**: the tools you list in `config.js` (`aiTools: [{id, name, sub, color, match}]`) are linked to the brain by particle streams. `match` holds the word(s) that find the tool's name in a note **title**; join several with `|` (meaning "or"), e.g. `'chatgpt|gpt'`. It ignores upper/lower case and is technically a regular expression, so plain words and `|` are all you need. Each count is the real number of matching titles; nothing is made up. `aiTools: []` hides the tab, `aiTabName` renames it (default "AI 엔진", shown as "AI 엔진 ENGINE" like the other tabs), `?mode=ai` opens it directly. Optional title/group hiding for public sharing (with `--hide-titles` the AI tab shows hidden titles, and counts are taken from the real titles at build time).
-
-<p align="center"><img src="skills/obsidian-brain-3d/docs/preview-ai.png" alt="AI engine tab" width="100%"></p>
-
-**Credits.**
-- Started after seeing an [X post](https://x.com/karlarboledas/status/2111838109029552334) about [graphify](https://github.com/Graphify-Labs/graphify) and a brain-shaped dashboard video in it. No graphify code or design files were used; the viewer was written from scratch with three.js and pushed in a different direction (x-ray skull, world tree). Vault structure follows Karpathy's [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). The AI-tab layout idea came from an "AI setup" dashboard post by @yungeonu11 on Threads (no code or assets used; icons are abstract shapes, not product logos). Models: NIH 3D (CC BY 4.0); library: three.js (MIT). See [CREDITS.md](skills/obsidian-brain-3d/viewer/CREDITS.md).
-
-### Quick start (English, about 5 minutes)
-
-You need **Node.js** (a free program that runs JavaScript tools on your computer) and a web browser. Your notes are only read, never changed, and nothing is uploaded.
-
-1. **Open a terminal** (a window where you type commands). Windows: press Start, type `PowerShell`, open "Windows PowerShell". Mac: press `Command + Space`, type `Terminal`, press Enter.
-2. **Check Node.js**: type `node --version`. Anything from `v18` up (e.g. `v22.11.0`) is fine. If you see "not recognized" or `command not found`, install the **LTS** (long-term support) version from [nodejs.org](https://nodejs.org), then close and reopen the terminal and check again.
-3. **Get this folder.** With git: `git clone https://github.com/reedodev/obsidian-brain-3d.git` then `cd obsidian-brain-3d`. Without git: green **Code** button → **Download ZIP**, unzip it (Windows: right-click → Extract All; do not run from inside the zip), type `cd ` (with a space) in the terminal, drag the `obsidian-brain-3d-main` folder onto the terminal window and press Enter. `dir` (Windows) or `ls` (Mac) should now list `README.md` and `skills`. Run every command below from this folder.
-4. **Build the sample**:
-   ```
-   node skills/obsidian-brain-3d/scripts/build-data.mjs skills/obsidian-brain-3d/examples/sample-vault --site brain-site
-   ```
-   It ends with `Done / 완료` and creates a `brain-site` folder.
-5. **Start the viewer**: `node skills/obsidian-brain-3d/scripts/serve.mjs brain-site`. When it prints `serving ... at http://127.0.0.1:8770/`, leave this terminal open.
-6. **Open** `http://127.0.0.1:8770/` in Chrome, Edge or Safari. Only your own computer can open it.
-7. **Use your own vault**: press `Ctrl + C` in the terminal, then repeat steps 4-6 with your vault folder in place of the sample path, in quotes, e.g. `"C:\Users\me\Documents\My Vault"` or `"/Users/me/Documents/My Vault"`. Tip: drag the folder onto the terminal to paste its path. An Obsidian vault is the folder that contains a hidden `.obsidian` folder.
-8. **Stop**: click the terminal and press `Ctrl + C` (also on Mac). Next time just do step 5.
-
-**Nothing shows up?** (1) Is the step-5 terminal still open and showing `serving ...`? If it says `Port 8770 is busy`, add another number (`... serve.mjs brain-site 8771`) and open `:8771`. (2) Is the address exactly `http://127.0.0.1:8770/` (http, not https)? Double-clicking `index.html` may be blocked by some browsers, so use this address. (3) Black screen? Hard-refresh (`Ctrl + F5` / `Command + Shift + R`) and try the latest Chrome or Edge with hardware acceleration on; 3D (WebGL) may not work over remote desktop. `Folder not found` means a wrong path or missing quotes; `Cannot find module` means you are not inside the folder from step 3.
-
-Press **T** to morph between the brain and the world tree, **B** for the brain, **A** for the AI tab. Everything runs locally; nothing is uploaded. Rebuild with `--hide-titles --hide-groups` (see SKILL.md) before sharing screenshots of a private vault.
-
-Install: `/plugin marketplace add reedodev/obsidian-brain-3d` then `/plugin install obsidian-brain-3d@obsidian-brain-3d`, or copy `skills/obsidian-brain-3d` into `~/.claude/skills/`. See [SKILL.md](skills/obsidian-brain-3d/SKILL.md) for the full procedure. MIT License; third-party models, fonts and libraries keep their own licenses.
+MIT License ([LICENSE](LICENSE)). The bundled 3D models and libraries keep their own licenses ([CREDITS.md](skills/obsidian-brain-3d/viewer/CREDITS.md)).
