@@ -1,13 +1,15 @@
 ---
 name: obsidian-brain-3d
-description: "옵시디언(Obsidian)이나 마크다운 노트 폴더를 읽어 노트와 [[링크]]를 엑스레이 뇌·두개골 3D 화면과 세계수 화면으로 보여 주는 지식그래프 뷰어를 만든다. 아래 패널에는 실제 노트 제목·날짜·연결 수가 나온다. '옵시디언 지식그래프 3D', '내 노트를 뇌 모양으로', '지식 저장고 시각화', '세계수 그래프' 요청에 쓴다. Use for 3D knowledge graph visualization of an Obsidian / markdown vault: x-ray brain and skull view, world-tree view, CT-style slices and panels with real note titles, dates and link counts."
+description: "옵시디언(Obsidian)이나 마크다운 노트 폴더를 읽어 노트와 [[링크]]를 엑스레이 뇌·두개골 3D 화면과 세계수 화면, 도구들이 빛줄기로 뇌에 연결되는 AI 엔진 화면으로 보여 주는 지식그래프 뷰어를 만든다. 아래 패널에는 실제 노트 제목·날짜·연결 수가 나온다. '옵시디언 지식그래프 3D', '내 노트를 뇌 모양으로', '지식 저장고 시각화', '세계수 그래프' 요청에 쓴다. Use for 3D knowledge graph visualization of an Obsidian / markdown vault: x-ray brain and skull view, world-tree view, AI-tools engine view, CT-style slices and panels with real note titles, dates and link counts."
 ---
 
 # 옵시디언 노트를 3D 뇌로 보기 (obsidian-brain-3d)
 
-노트 보관함을 읽기만 해서 `data.js` 한 파일을 만들고, 그 데이터를 엑스레이 뇌와 두개골 안에 점으로 뿌려 보여 주는 뷰어입니다. 노트는 그룹(폴더, 문서 종류, 태그 가운데 하나)에 따라 뇌의 여섯 영역에 나뉘어 놓이고, `T` 키를 누르면 같은 점들이 세계수의 잎으로 옮겨 갑니다. 화면의 수학 도형은 분위기를 위한 장식이고, 아래 여섯 칸에는 실제 노트 제목과 날짜, 연결 수가 그대로 나옵니다.
+노트 보관함을 읽기만 해서 `data.js` 한 파일을 만들고, 그 데이터를 엑스레이 뇌와 두개골 안에 점으로 뿌려 보여 주는 뷰어입니다. 노트는 그룹(폴더, 문서 종류, 태그 가운데 하나)에 따라 뇌의 여섯 영역에 나뉘어 놓이고, `T` 키를 누르면 같은 점들이 세계수의 잎으로 옮겨 갑니다. `A` 키를 누르면 세 번째 탭 「AI 엔진」이 열려, `config.js`에 적은 도구들이 빛줄기로 가운데 뇌에 연결되고 도구마다 제목에 그 이름이 들어간 노트 수가 나옵니다. 화면의 수학 도형은 분위기를 위한 장식이고, 아래 여섯 칸에는 실제 노트 제목과 날짜, 연결 수가 그대로 나옵니다.
 
 ![미리보기](docs/preview.png)
+
+![AI 엔진 탭](docs/preview-ai.png)
 
 ## 언제 쓰나요
 - 옵시디언 보관함이나 마크다운 노트 폴더가 어떤 분야로 얼마나 쌓였는지, 무엇이 무엇과 이어져 있는지 한눈에 보고 싶을 때
@@ -51,16 +53,16 @@ tags: [youtube, upload]
    ```bash
    node scripts/build-data.mjs "<보관함 폴더>" --site ./brain-site --title "내 지식 저장고"
    ```
-   `brain-site` 폴더에 `index.html`, `data.js`, `models.js`, `three.min.js`, `CREDITS.md`가 함께 들어갑니다. 결과 JSON의 `notes`, `links`, `regions`를 보고 그룹이 원하는 대로 나뉘었는지 확인합니다.
+   `brain-site` 폴더에 `index.html`, `ai-engine.js`, `data.js`, `models.js`, `three.min.js`, `config.js`, `CREDITS.md`가 함께 들어갑니다. 결과 JSON의 `notes`, `links`, `regions`를 보고 그룹이 원하는 대로 나뉘었는지 확인합니다.
 2. **화면을 엽니다.** 브라우저가 `file://`로 연 파일의 스크립트를 막는 경우가 있으므로 내 컴퓨터 안에서만 열리는 작은 서버를 씁니다.
    ```bash
    node scripts/serve.mjs ./brain-site 8770
    ```
    그다음 브라우저에서 `http://127.0.0.1:8770/`을 엽니다. 이 서버는 127.0.0.1에만 열리기 때문에 같은 네트워크의 다른 기기에서는 접속할 수 없습니다. 다 보면 `Ctrl+C`로 끕니다.
-3. **조작합니다.** 끌어서 돌리고 휠로 확대하며, 점을 누르면 그 노트가 왼쪽 아래 카드와 LINKED 칸에 고정됩니다. `T` 키나 위쪽 버튼으로 뇌와 세계수를 오가고, 오른쪽 메뉴로 배경을 바꿀 수 있습니다.
+3. **조작합니다.** 끌어서 돌리고 휠로 확대하며, 점을 누르면 그 노트가 왼쪽 아래 카드와 LINKED 칸에 고정됩니다. `B`·`T`·`A` 키나 위쪽 버튼으로 뇌·세계수·AI 엔진을 오가고(`A`를 한 번 더 누르면 바로 전 화면으로), 오른쪽 메뉴로 배경을 바꿀 수 있습니다. AI 엔진 탭에서는 끌어서 돌리고 도구를 누르면 그 도구 쪽으로 다가가며 관련 노트 목록이 나오고, 빈 곳을 누르거나 `Esc`를 누르면 전체 보기로 돌아옵니다.
 4. **검수합니다.** 화면이 비어 있으면 개발자 도구 콘솔이나 `window.__errs`에서 오류를 확인합니다. 아래 칸의 노트 제목과 개수가 실제 보관함과 맞는지 몇 개만 대조해 봅니다.
 
-예시 데이터로 먼저 보고 싶다면 저장소에 들어 있는 가상 노트 60개를 그대로 씁니다.
+예시 데이터로 먼저 보고 싶다면 저장소에 들어 있는 가상 노트 66개를 그대로 씁니다.
 ```bash
 node scripts/build-data.mjs examples/sample-vault --site ./brain-site --title "Sample Vault"
 node scripts/serve.mjs ./brain-site
@@ -103,17 +105,29 @@ node scripts/serve.mjs ./brain-site
 | "목차 노트에 몰린 선 빼 줘" | 다시 빌드: `--exclude-hubs auto` |
 | "제목을 '내 두 번째 뇌'로 해 줘" | 다시 빌드: `--title "내 두 번째 뇌"` |
 | "공개용으로 제목 가려 줘" | 다시 빌드: `--hide-titles --hide-groups` |
+| "처음부터 AI 엔진 탭으로 열리게" | `startMode: 'ai'` (주소로는 `?mode=ai`) |
+| "AI 탭 이름을 '내 도구'로" | `aiTabName: '내 도구'` |
+| "AI 탭 큰 제목을 바꿔 줘" | `aiTitle: '내 도구들이 한 뇌로'` |
+| "AI 탭에 Cursor 넣어 줘" | `aiTools`에 한 줄 추가: `{ id: 'cursor', name: 'Cursor', sub: '코드 편집', color: '#7fd0ff', match: 'cursor\|커서' }` |
+| "Notion 빼 줘" | `aiTools`에서 그 줄 삭제 |
+| "'GPT'라고만 쓴 노트도 ChatGPT로 세 줘" | 그 도구의 `match`를 넓힘: `'chatgpt\|\\bgpt'` (대소문자 무시 정규식. 문자열 안이라 `\b`를 `\\b`로 씀) |
+| "도구 아이콘 모양 바꿔 줘" | `icon: 'star'` 등 (`crystal`, `square`, `burst`, `orbit`, `star`, `branch`, `dots`, `hex`, `lens`, `eye`) |
+| "AI 탭 없애 줘" | `aiTools: []` |
 
 파일을 고치지 않고 잠깐 시험해 보려면 주소 뒤에 옵션을 붙입니다. 주소 옵션이 `config.js`보다 우선합니다.
 ```
 http://127.0.0.1:8770/?mode=tree&bg=space&speed=0&skull=0&jaw=1
+http://127.0.0.1:8770/?mode=ai
 ```
+
+**AI 엔진 탭의 숫자에 대해**: 도구 칸의 숫자는 노트 **제목**에서 그 도구의 `match`가 걸린 노트 수이고, 본문은 보지 않습니다. 예시 숫자를 꾸며 넣지 않으므로 제목에 도구 이름을 잘 안 쓰는 보관함에서는 0이 많이 나올 수 있습니다. 이때는 `match`에 그 도구를 부르는 다른 이름(한글 이름, 줄임말)을 더합니다. 아래 흐름 기록(log)은 실제 작업 기록이 아니라 실제 노트 제목을 차례로 보여 주는 연출입니다. `aiTools` 줄을 통째로 지운 예전 `config.js`라면 기본 예시 도구(Obsidian, Notion, Claude, ChatGPT, Gemini, Git)를 씁니다. 도구는 12개까지 보입니다.
 
 **모양을 바꾼 뒤에는** 브라우저를 새로고침하고 개발자 도구 콘솔에서 `window.__errs`가 빈 목록(`[]`)인지 확인한 뒤 화면을 직접 봅니다. 배경을 위쪽 메뉴로 고른 적이 있으면 그 선택이 브라우저에 저장돼 `config.js`보다 앞서므로, 주소에 `?bg=`를 붙이거나 메뉴에서 다시 고릅니다.
 
 **더 큰 변경**(뇌 대신 다른 모양, 아래 여섯 칸 바꾸기)은 `config.js`로는 안 되고 `viewer/index.html`을 고쳐야 합니다. 이때는 에이전트에게 "원본은 두고 `index.html`을 복사해서 고쳐 줘, 바꾼 뒤 오류가 0개인지와 화면을 확인해 줘"처럼 백업과 확인까지 함께 요청합니다. 뇌·두개골 모델을 계속 쓴다면 오른쪽 아래 CC BY 출처 줄은 남겨 둡니다.
 
 ## 공개할 때 주의
+- `--hide-titles`로 만든 화면의 AI 엔진 탭은 가려진 제목(`그룹 #번호`)만 보여 줍니다. 도구별 개수는 빌드할 때 실제 제목으로 세어 `data.js`의 `aiHits`(도구별 노트 번호 목록)에 넣으므로, 어떤 가린 노트가 어떤 도구와 관련 있는지는 드러납니다. 도구 이름 자체를 숨기고 싶다면 `aiTools: []`로 탭을 끕니다. `aiTools`를 고친 뒤에는 다시 빌드해야 가린 화면의 개수가 바뀝니다.
 - `data.js`에는 노트 본문이 들어가지 않지만 **제목, 그룹 이름, 날짜, 상태는 그대로 들어갑니다.** 제목에 이름, 회사, 주소, 계정, 건강·돈 이야기가 섞여 있다면 공개하기 전에 `--hide-titles --hide-groups`를 켜거나 직접 확인한 제목만 남깁니다.
 - 공개용으로 만든 `data.js`는 브라우저에서 누구나 내려받을 수 있습니다. 가렸다고 생각한 내용이 남아 있지 않은지 파일을 직접 열어 검색해 봅니다.
 - 뇌와 두개골 모델은 CC BY 4.0이므로 화면 오른쪽 아래의 출처 줄을 지우지 않고, `CREDITS.md`를 함께 올립니다.

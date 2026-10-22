@@ -19,12 +19,17 @@
  *   --recent-days <N>                window for "recent" glow (default 7)
  *   --chart-days <N>                 days shown in the daily chart (default 30)
  *
+ * AI tab: tools come from aiTools in config.js next to the output (or the bundled default).
+ * With --hide-titles the per-tool counts are taken here from the real titles (BRAIN.aiHits),
+ * because data.js then only holds hidden titles.
+ *
  * The vault is only read. Nothing inside it is written or renamed.
  */
 import fs from 'node:fs/promises';
 import fss from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import vm from 'node:vm';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const VIEWER = path.join(here, '..', 'viewer');
@@ -196,7 +201,36 @@ const stat = {
   hiddenTitles: !!opts['hide-titles'],
   built: new Date().toISOString(),
 };
-const js = `window.BRAIN=${JSON.stringify({ nodes, edges: drawEdges, regions, stat })};\n`;
+// ---------- AI tab (only needed when titles are hidden) ----------
+function loadAiTools(dir) {
+  const read = (f) => (fss.existsSync(f) ? fss.readFileSync(f, 'utf8') : null);
+  let tools;
+  const cfgSrc = read(path.join(dir, 'config.js')) ?? read(path.join(VIEWER, 'config.js'));
+  if (cfgSrc) {
+    try { const box = { window: {} }; vm.runInNewContext(cfgSrc, box, { timeout: 1000 }); tools = (box.window.BRAIN_CONFIG || {}).aiTools; }
+    catch (e) { console.error('config.js could not be read for aiTools: ' + e.message); }
+  }
+  if (!Array.isArray(tools)) {
+    const m = (read(path.join(VIEWER, 'ai-engine.js')) || '').match(/\/\*AI_DEFAULTS\*\/([\s\S]*?)\/\*END_AI_DEFAULTS\*\//);
+    tools = m ? JSON.parse(m[1]) : [];
+  }
+  return tools;
+}
+let aiHits;
+const outDir = opts.out ? path.dirname(path.resolve(opts.out)) : path.resolve(opts.site || 'brain-site');
+if (opts['hide-titles']) {
+  aiHits = {};
+  const used = new Set();
+  loadAiTools(outDir).filter((t) => t && t.name).slice(0, 12).forEach((t, i) => {
+    let id = String(t.id || t.name).toLowerCase().replace(/[^a-z0-9\uac00-\ud7a3_-]+/g, '-') || 'tool' + i;
+    while (used.has(id)) id += '_';
+    used.add(id);
+    let re;
+    try { if (!t.match) throw new Error('empty'); re = new RegExp(t.match, 'i'); } catch { re = new RegExp(String(t.name).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'); }
+    aiHits[id] = docs.map((d, k) => (re.test(d.title) ? k : -1)).filter((k) => k >= 0);
+  });
+}
+const js = `window.BRAIN=${JSON.stringify({ nodes, edges: drawEdges, regions, stat, ...(aiHits ? { aiHits } : {}) })};\n`;
 
 // ---------- write ----------
 let outFile;
@@ -207,7 +241,7 @@ if (opts.out) {
   const site = path.resolve(opts.site || 'brain-site');
   if (site.startsWith(path.resolve(vault) + path.sep)) { console.error('refusing to write inside the vault: ' + site); process.exit(2); }
   await fs.mkdir(site, { recursive: true });
-  for (const f of ['index.html', 'three.min.js', 'models.js', 'CREDITS.md', 'config.js']) {
+  for (const f of ['index.html', 'ai-engine.js', 'three.min.js', 'models.js', 'CREDITS.md', 'config.js']) {
     if (f === 'config.js' && fss.existsSync(path.join(site, f))) continue; // keep the user's own settings
     const src = path.join(VIEWER, f);
     if (fss.existsSync(src)) await fs.copyFile(src, path.join(site, f));

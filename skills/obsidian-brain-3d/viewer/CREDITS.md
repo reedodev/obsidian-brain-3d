@@ -13,7 +13,13 @@
 ## Example data
 - `examples/sample-vault` is fictional. The notes were generated for this example and do not describe a real person.
 
+## AI tab (`ai-engine.js`)
+- Written for this project with three.js. It reuses the brain mesh from `models.js` (same CC BY 4.0 credit as above), so the credit line stays visible while the AI tab is open.
+- Tool icons are abstract shapes (crystal, burst, orbit, star, branch, ...), not the official logos of any product. Tool names in `config.js` are only example labels; Obsidian, Notion, Claude, ChatGPT, Gemini and Git are trademarks of their owners, and this project is not affiliated with them.
+- No music or sound files are included.
+
 ## Ideas and inspiration (no code or assets copied)
 - Prompted by an X post about graphify (https://github.com/Graphify-Labs/graphify): https://x.com/karlarboledas/status/2111838109029552334. The viewer is an independent three.js implementation.
 - Vault structure: Andrej Karpathy, "LLM Wiki" idea file: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
 - Link-as-edge idea: Obsidian graph view.
+- AI tab layout idea (tool tiles linked to a glowing core by particle streams): an "AI setup" dashboard post by @yungeonu11 on Threads. No code, images or design files from it were used.

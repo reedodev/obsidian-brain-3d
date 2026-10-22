@@ -8,9 +8,22 @@
 
 # 옵시디언 3D 지식그래프 (obsidian-brain-3d)
 
-옵시디언 노트 보관함을 엑스레이 뇌·두개골 속 점으로 보여 주고, T 키 하나로 세계수 모양으로 바꿉니다. 아래 여섯 칸에는 실제 노트 제목·날짜·연결 수가 나오고, 공개할 때는 제목과 분류 이름을 가릴 수 있습니다.
+옵시디언 노트 보관함을 엑스레이 뇌·두개골 속 점으로 보여 주고, T 키 하나로 세계수 모양으로 바꿉니다. A 키를 누르면 세 번째 탭 「AI 엔진」에서 내가 쓰는 도구들이 빛줄기로 가운데 뇌에 연결됩니다. 아래 여섯 칸에는 실제 노트 제목·날짜·연결 수가 나오고, 공개할 때는 제목과 분류 이름을 가릴 수 있습니다.
 
 <p align="center"><img src="skills/obsidian-brain-3d/docs/preview.png" alt="옵시디언 3D 지식그래프 화면" width="100%"></p>
+
+### AI 엔진 탭
+
+<p align="center"><img src="skills/obsidian-brain-3d/docs/preview-ai.png" alt="AI 엔진 탭: 도구 타일이 빛줄기로 가운데 뇌에 연결되는 화면" width="100%"></p>
+
+도구 목록은 출력 폴더 `config.js`의 `aiTools`에 적습니다. 도구마다 `match`(정규식)로 **노트 제목**을 검사해 실제로 걸린 노트 수만 보여 주고, 숫자를 꾸며 넣지 않습니다. 아래 흐름 기록(log)은 실제 노트 제목을 차례로 보여 주는 연출입니다. `aiTools: []`로 비우면 탭이 사라지고, 탭 이름은 `aiTabName`으로 바꿉니다. 주소에 `?mode=ai`를 붙이면 바로 이 탭으로 열립니다.
+
+```js
+aiTools: [
+  { id: 'obsidian', name: 'Obsidian', sub: '노트 보관함', color: '#a87bff', match: 'obsidian|옵시디언' },
+  { id: 'claude',   name: 'Claude',   sub: '글쓰기 · 코딩', color: '#ff8a5c', match: 'claude|클로드' }
+]
+```
 
 ## 무엇이 필요한가요?
 
@@ -20,7 +33,8 @@
 
 ## 모양 바꾸기
 
-출력 폴더의 `config.js` 한 파일에서 바꿉니다. 에이전트에게 "세계수 화면으로 먼저 열리게 해 줘", "배경을 우주로", "해골 빼고 뇌만", "영역 색을 따뜻한 색으로"처럼 말하면 됩니다. 파일을 고치지 않고 시험해 보려면 주소 뒤에 `?mode=tree&bg=space&skull=0`처럼 붙입니다. 말과 설정값의 대응표는 [SKILL.md](skills/obsidian-brain-3d/SKILL.md#모양-바꾸기-이렇게-말하세요)에 있습니다.
+출력 폴더의 `config.js` 한 파일에서 바꿉니다. 에이전트에게 "세계수 화면으로 먼저 열리게 해 줘", "배경을 우주로", "해골 빼고 뇌만", "영역 색을 따뜻한 색으로", "AI 탭에 Cursor 넣어 줘"처럼 말하면 됩니다. 파일을 고치지 않고 시험해 보려면 주소 뒤에 `?mode=tree&bg=space&skull=0`(AI 탭은 `?mode=ai`)처럼 붙입니다. 말과 설정값의 대응표는 [SKILL.md](skills/obsidian-brain-3d/SKILL.md#모양-바꾸기-이렇게-말하세요)에 있습니다.
+
 ## 설치
 
 **Claude Code 플러그인으로 설치**
@@ -58,6 +72,7 @@ node skills/obsidian-brain-3d/scripts/serve.mjs ./brain-site      # http://127.0
 - **계기와 화면 영감**: 폴더를 지식 그래프로 바꾸는 [graphify](https://github.com/Graphify-Labs/graphify)를 소개한 [X 게시물](https://x.com/karlarboledas/status/2111838109029552334)과 그 안의 뇌 모양 대시보드 영상을 보고 "내 노트도 뇌처럼 보이게 할 수 있을까"에서 시작했습니다. graphify의 코드나 그 영상의 디자인 파일은 쓰지 않았고, 화면은 three.js로 새로 만들었습니다. 겉모양이 비슷해 보이지 않도록 엑스레이·두개골·세계수 방향으로 바꿨습니다.
 - **노트 저장고 방식**: 작성자의 보관함은 Andrej Karpathy의 [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) 방식으로 운영하며, 그 구조는 [obsidian-llm-wiki](https://github.com/reedodev/obsidian-llm-wiki)에 정리했습니다.
 - **연결선과 그래프라는 생각**: 옵시디언의 그래프 보기처럼 `[[링크]]`를 선으로 잇는 방식을 따랐습니다.
+- **AI 엔진 탭**: 도구 타일이 빛나는 가운데 코어와 입자 물줄기로 이어지는 배치는 Threads @yungeonu11의 "AI 셋업" 대시보드 게시물에서 착안했습니다. 그 게시물의 코드·이미지·디자인 파일은 쓰지 않았고, 도구 아이콘은 제품 로고가 아닌 추상 모양입니다. 소리·음악 파일은 넣지 않았습니다.
 - **3D 모델과 라이브러리**: 뇌·두개골 모델은 NIH 3D(CC BY 4.0), 3D 그리기는 three.js(MIT)입니다. 자세한 출처는 [CREDITS.md](skills/obsidian-brain-3d/viewer/CREDITS.md)에 있습니다.
 
 ## 만든 사람
@@ -71,10 +86,12 @@ node skills/obsidian-brain-3d/scripts/serve.mjs ./brain-site      # http://127.0
 
 ## English
 
-Render an Obsidian vault as points inside an x-ray brain and skull, switch to a world-tree layout with T, and see real note titles, dates and link counts. Optional title/group hiding for public sharing.
+Render an Obsidian vault as points inside an x-ray brain and skull, switch to a world-tree layout with T, and see real note titles, dates and link counts. Press **A** for the third tab, **AI engine**: the tools you list in `config.js` (`aiTools: [{id, name, sub, color, match}]`) are linked to the brain by particle streams. Each count is the real number of note titles matching that tool's `match` regex; nothing is made up. `aiTools: []` hides the tab, `aiTabName` renames it, `?mode=ai` opens it directly. Optional title/group hiding for public sharing (with `--hide-titles` the AI tab shows hidden titles, and counts are taken from the real titles at build time).
+
+<p align="center"><img src="skills/obsidian-brain-3d/docs/preview-ai.png" alt="AI engine tab" width="100%"></p>
 
 **Credits.**
-- Started after seeing an [X post](https://x.com/karlarboledas/status/2111838109029552334) about [graphify](https://github.com/Graphify-Labs/graphify) and a brain-shaped dashboard video in it. No graphify code or design files were used; the viewer was written from scratch with three.js and pushed in a different direction (x-ray skull, world tree). Vault structure follows Karpathy's [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). Models: NIH 3D (CC BY 4.0); library: three.js (MIT). See [CREDITS.md](skills/obsidian-brain-3d/viewer/CREDITS.md).
+- Started after seeing an [X post](https://x.com/karlarboledas/status/2111838109029552334) about [graphify](https://github.com/Graphify-Labs/graphify) and a brain-shaped dashboard video in it. No graphify code or design files were used; the viewer was written from scratch with three.js and pushed in a different direction (x-ray skull, world tree). Vault structure follows Karpathy's [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). The AI-tab layout idea came from an "AI setup" dashboard post by @yungeonu11 on Threads (no code or assets used; icons are abstract shapes, not product logos). Models: NIH 3D (CC BY 4.0); library: three.js (MIT). See [CREDITS.md](skills/obsidian-brain-3d/viewer/CREDITS.md).
 
 ### Quick start (English)
 
@@ -84,8 +101,8 @@ git clone https://github.com/reedodev/obsidian-brain-3d.git && cd obsidian-brain
 node skills/obsidian-brain-3d/scripts/build-data.mjs <your-vault> --site ./brain-site
 # 2. Serve it and open http://127.0.0.1:8770/  (keep this terminal open)
 node skills/obsidian-brain-3d/scripts/serve.mjs ./brain-site
-`
+```
 
-No vault yet? Use the bundled sample: skills/obsidian-brain-3d/examples/sample-vault. Press **T** to morph between the brain and the world tree. Everything runs locally; nothing is uploaded. Add ?hide=titles style options (see SKILL.md) before screenshotting a private vault.
+No vault yet? Use the bundled sample: `skills/obsidian-brain-3d/examples/sample-vault`. Press **T** to morph between the brain and the world tree, **B** for the brain, **A** for the AI tab. Everything runs locally; nothing is uploaded. Rebuild with `--hide-titles --hide-groups` (see SKILL.md) before sharing screenshots of a private vault.
 
 Install: `/plugin marketplace add reedodev/obsidian-brain-3d` then `/plugin install obsidian-brain-3d@obsidian-brain-3d`, or copy `skills/obsidian-brain-3d` into `~/.claude/skills/`. See [SKILL.md](skills/obsidian-brain-3d/SKILL.md) for the full procedure. MIT License; third-party models, fonts and libraries keep their own licenses.

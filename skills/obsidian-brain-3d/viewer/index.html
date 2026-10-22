@@ -109,7 +109,7 @@ const CFG={
  bloom:{strength:.6,radius:1.0},
  background:'net'     // net | hex | space | rain | contour | none   
 };
-/* config.js(window.BRAIN_CONFIG)와 주소 뒤 ?bg=space&speed=0.2&mode=tree&jaw=1 로 모양을 바꿉니다 */
+/* config.js(window.BRAIN_CONFIG)와 주소 뒤 ?bg=space&speed=0.2&mode=tree(또는 mode=ai)&jaw=1 로 모양을 바꿉니다 */
 (()=>{const U=window.BRAIN_CONFIG||{},q=new URLSearchParams(location.search);
  for(const k of ['rotateSpeed','jaw','background'])if(k in U)CFG[k]=U[k];
  if(U.skull)Object.assign(CFG.skull,U.skull);if(U.bloom)Object.assign(CFG.bloom,U.bloom);
@@ -339,7 +339,7 @@ const actList=order.filter(i=>adj[i].length>=2).slice(0,14);let actIdx=actList[0
 function setCard(i){const n=N[i],r=R[n[1]];$('card').innerHTML=`<div class="h">${esc(n[0])}</div><dl><dt>그룹</dt><dd style="color:${r.col}">${r.ko} · ${r.key}</dd><dt>세계수</dt><dd>${r.tree||'가지 branch'}</dd><dt>상태</dt><dd>${esc(n[4]||'-')}</dd><dt>연결</dt><dd>직접 ${adj[i].length} / 전체 ${n[2]}</dd><dt>만든 날</dt><dd>${n[5]}</dd></dl>`;if(window.__ready)drawEgo()}
 const labs=$('labs');const labEls=R.map(r=>{const e=document.createElement('div');e.className='lab';e.innerHTML=`<b style="color:${r.col}">${r.key}</b><span>${r.ko}</span>`;labs.appendChild(e);return e});
 const anchB=R.map((r,k)=>{let best=-1,bs=-1e9,pt=null;const d=r.dir;for(const[p,i]of cand[k]){const P=p.geo.attributes.position;const s=P.getX(i)*d[0]+P.getY(i)*d[1]+P.getZ(i)*d[2];if(s>bs){bs=s;best=i;pt=p}}const P=pt.geo.attributes.position;return V3(P.getX(best),P.getY(best),P.getZ(best))});
-let morphT=0;const setMode=m=>{morphT=m;$('tB').classList.toggle('on',m===0);$('tT').classList.toggle('on',m===1)};$('tB').onclick=()=>setMode(0);$('tT').onclick=()=>setMode(1);addEventListener('keydown',e=>{if(e.key==='t'||e.key==='T')setMode(1-morphT)});if(CFG.startMode==='tree')setMode(1);
+let morphT=0;const setMode=m=>{morphT=m;$('tB').classList.toggle('on',m===0);$('tT').classList.toggle('on',m===1)};$('tB').onclick=()=>setMode(0);$('tT').onclick=()=>setMode(1);addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey||(e.target&&/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)))return;if(e.key==='t'||e.key==='T')setMode(1-morphT);if(e.key==='b'||e.key==='B')setMode(0)});if(CFG.startMode==='tree')setMode(1);
 setInterval(()=>{$('clk').textContent=new Date().toLocaleString('ko-KR')},1000);
 
 /* ---------- 아래 패널: 실제 내용 + 수학 도형 ---------- */
@@ -425,6 +425,7 @@ function renderBloom(cam,mr,Hh){const w=Math.max(2,Math.floor(mr.width*PX)),h=Ma
  matCopy.uniforms.tex.value=BL.b.texture;pass(matCopy,BL.d);blurInto(BL.d,BL.e,BL.d,w3,h3,CFG.bloom.radius*1.4);blurInto(BL.d,BL.e,BL.d,w3,h3,CFG.bloom.radius*2.2);
  renderer.setRenderTarget(null);vp(mr,Hh);matComp.uniforms.base.value=BL.a.texture;matComp.uniforms.b1.value=BL.b.texture;matComp.uniforms.b2.value=BL.d.texture;matComp.uniforms.str.value=CFG.bloom.strength;qMesh.material=matComp;renderer.render(qScene,qCam)}
 function frame(now){
+ if(window.__AI_ON){prev=now;requestAnimationFrame(frame);return} // AI 탭이 열려 있으면 본 화면은 쉼
  const dt=Math.min(.05,(now-prev)/1000);prev=now;const t=now/1000;UNI.t.value=t;
  UNI.uMorph.value+=(morphT-UNI.uMorph.value)*Math.min(1,dt*1.8);const m=UNI.uMorph.value;
  if(!drag&&now-lastTouch>3500)yaw+=CFG.rotateSpeed*dt;
@@ -458,5 +459,6 @@ requestAnimationFrame(frame);
 $('ttl').textContent=B.stat.title||'Knowledge Brain';
 $('dataInfo').textContent=N.length.toLocaleString()+' notes · '+(B.stat.edges||0).toLocaleString()+' links'+(B.stat.hiddenTitles?' · titles hidden':'')+' · built '+String(B.stat.built||'').slice(0,10);
 </script>
+<script src="ai-engine.js"></script>
 </body>
 </html>
