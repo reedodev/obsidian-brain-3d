@@ -76,4 +76,16 @@ Render an Obsidian vault as points inside an x-ray brain and skull, switch to a 
 **Credits.**
 - Started after seeing an [X post](https://x.com/karlarboledas/status/2111838109029552334) about [graphify](https://github.com/Graphify-Labs/graphify) and a brain-shaped dashboard video in it. No graphify code or design files were used; the viewer was written from scratch with three.js and pushed in a different direction (x-ray skull, world tree). Vault structure follows Karpathy's [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). Models: NIH 3D (CC BY 4.0); library: three.js (MIT). See [CREDITS.md](skills/obsidian-brain-3d/viewer/CREDITS.md).
 
+### Quick start (English)
+
+`ash
+git clone https://github.com/reedodev/obsidian-brain-3d.git && cd obsidian-brain-3d
+# 1. Build a site from any folder of .md notes (read-only, never writes into your vault)
+node skills/obsidian-brain-3d/scripts/build-data.mjs <your-vault> --site ./brain-site
+# 2. Serve it and open http://127.0.0.1:8770/  (keep this terminal open)
+node skills/obsidian-brain-3d/scripts/serve.mjs ./brain-site
+`
+
+No vault yet? Use the bundled sample: skills/obsidian-brain-3d/examples/sample-vault. Press **T** to morph between the brain and the world tree. Everything runs locally; nothing is uploaded. Add ?hide=titles style options (see SKILL.md) before screenshotting a private vault.
+
 Install: `/plugin marketplace add reedodev/obsidian-brain-3d` then `/plugin install obsidian-brain-3d@obsidian-brain-3d`, or copy `skills/obsidian-brain-3d` into `~/.claude/skills/`. See [SKILL.md](skills/obsidian-brain-3d/SKILL.md) for the full procedure. MIT License; third-party models, fonts and libraries keep their own licenses.
